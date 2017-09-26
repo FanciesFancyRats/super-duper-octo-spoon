@@ -29,7 +29,7 @@ while balanceCheck > 0:
     print('loop 1')
     print(balanceCheck)
     print(minimumPayment)
-    minimumPayment = minimumPayment + 10;
+    minimumPayment = minimumPayment + 0.01;
     remainingBalance = balance
     x = 0
     while ((x < 12) & (balanceCheck > 0)):
