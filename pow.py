@@ -5,7 +5,7 @@ y = 1
 z = 0
 a = 0
 b = 0
-count = 1
+count = 0
 
 while (z <= 8):
     print('x, y')
