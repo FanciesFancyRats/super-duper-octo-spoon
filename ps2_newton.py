@@ -10,7 +10,6 @@ y = 0
 place = 0
 totalXs = len(poly)
 xTo0 = poly[0]
-
 xTo1 = poly[1]
 xTo2 = poly[2]
 xTo3 = poly[3]
@@ -18,18 +17,36 @@ xTo4 = poly[4]
 guess = 0
 guess = float(guess)
 ans = 0
-while (x < 99):
- working = ((xTo0) + (xTo1 * guess) + (xTo2 * (guess**2)) + (xTo3 * (guess**3)) + (xTo4 * (guess**4)))
+rx = 0
+lx = 0
+count = 0
+
+working = ((xTo0) + (xTo1 * rx) + (xTo2 * (rx**2)) + (xTo3 * (rx**3)) + (xTo4 * (rx**4)))
+print(working)
+#while
+#while (x < 99):
+ #working = ((xTo0) + (xTo1 * guess) + (xTo2 * (guess**2)) + (xTo3 * (guess**3)) + (xTo4 * (guess**4)))
+
+ #print(xTo0) ,
+ #print(xTo1 * guess) ,
+ #print(xTo2 * guess**2) ,
+ #print(xTo3 * guess**3) ,
+ #print(xTo4 * guess**4)
  #print(working)
- x = x + 1
- print(guess) ,
- print(',') ,
- print(type(working))
- working = round(working, 1)
- guess = guess + 0.1
- if (working == 0): 
-  print(guess)
-print(ans)
+ #working = round(working, 2)
+ #x = x + 1
+ #print(guess) ,
+ #print(',') ,
+
+ #print(working)
+
+
+ #if (working == 0):
+  #print('****')
+  #print(guess)
+  #ans = guess
+ #guess = guess + 0.1
+#print(ans)
 
 #def evaluate_poly(poly, x):
 #    """
@@ -45,8 +62,8 @@ print(ans)
 #    x: number
 #    returns: float
 #    """
-    # TO DO ... 
-#    
+    # TO DO ...
+#
 #
 #def compute_deriv(poly):
 #    """
@@ -61,7 +78,7 @@ print(ans)
 #    poly: tuple of numbers, length > 0
 #    returns: tuple of numbers
 #    """
-#    # TO DO ... 
+#    # TO DO ...
 
 #def compute_root(poly, x_0, epsilon):
 #    """
@@ -83,5 +100,4 @@ print(ans)
 #    epsilon: float > 0
 #    returns: tuple (float, int)
 #    """
-#    # TO DO ... 
-
+#    # TO DO ...
