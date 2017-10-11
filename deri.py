@@ -28,6 +28,7 @@ while (count < terms):
  if (count > 1):
   poly[count] = (poly[count] * count)
  count = count + 1
+del poly[0]
 print(' ')
 print(poly)
 #make new list to get rid of extra 0

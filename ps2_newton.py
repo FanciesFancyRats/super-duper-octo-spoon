@@ -2,70 +2,65 @@
 #
 # Successive Approximation
 #
-s = raw_input('Please enter a polynomial seperated by commas: ')
-poly = map(float, s.split())
-print(poly)
-x = 0
-y = 0
-place = 0
-totalXs = len(poly)
-xTo0 = poly[0]
-xTo1 = poly[1]
-xTo2 = poly[2]
-xTo3 = poly[3]
-xTo4 = poly[4]
-guess = 0
-guess = float(guess)
-ans = 0
-rx = 0
-lx = 0
-count = 0
+def evaluate_poly(poly, x):
+    guess = x
+    guess = float(guess)
+    poly = map(float, poly.split())
+    terms = len(poly)
+    terms = int(terms)
+    count = 0
+    count = int(count)
+    ans = 0
+    ans = int(ans)
 
-working = ((xTo0) + (xTo1 * rx) + (xTo2 * (rx**2)) + (xTo3 * (rx**3)) + (xTo4 * (rx**4)))
-print(working)
-#while
-#while (x < 99):
- #working = ((xTo0) + (xTo1 * guess) + (xTo2 * (guess**2)) + (xTo3 * (guess**3)) + (xTo4 * (guess**4)))
+    while (count < terms):
+     print(count) ,
+     print(' < ') ,
+     print(terms)
+     poly[count] = (poly[count] * (guess**count))
+     ans = ans + poly[count]
+     count = count + 1
 
- #print(xTo0) ,
- #print(xTo1 * guess) ,
- #print(xTo2 * guess**2) ,
- #print(xTo3 * guess**3) ,
- #print(xTo4 * guess**4)
- #print(working)
- #working = round(working, 2)
- #x = x + 1
- #print(guess) ,
- #print(',') ,
+    return(ans)
 
- #print(working)
-
-
- #if (working == 0):
-  #print('****')
-  #print(guess)
-  #ans = guess
- #guess = guess + 0.1
-#print(ans)
-
-#def evaluate_poly(poly, x):
-#    """
-#   Computes the polynomial function for a given value x. Returns that value.
-#
-#    Example:
-#    >>> poly = (0.0, 0.0, 5.0, 9.3, 7.0)    # f(x) = 7x^4 + 9.3x^3 + 5x^2
-#    >>> x = -13
-#    >>> print evaluate_poly(poly, x)  # f(-13) = 7(-13)^4 + 9.3(-13)^3 + 5(-13)^2
-#    180339.9
-#
-#    poly: tuple of numbers, length > 0
-#    x: number
-#    returns: float
-#    """
-    # TO DO ...
-#
-#
-#def compute_deriv(poly):
+def compute_deriv(poly):
+    poly = map(float, poly.split())
+    terms = len(poly)
+    map(float, poly)
+    x = 0
+    while (x < terms):
+     if(x > 1):
+      print(poly[x]) ,
+      print('x') ,
+      print('^') ,
+      print(x) ,
+      print(' + ') ,
+     if(x == 1):
+      print(poly[x]) ,
+      print('x') ,
+      print(' + ') ,
+     if(x == 0):
+      print(poly[x]) ,
+      print(' + ')
+     x = x + 1
+    #d/dx = nx^n-1
+    count = 0
+    while (count < terms):
+     if (count == 0):
+      poly[count] = 0
+     if (count == 1):
+      poly[count] = poly[count]
+     if (count > 1):
+      poly[count] = (poly[count] * count)
+     count = count + 1
+    print(' ')
+    del poly[0]
+    #do I need this? first term will always be 0. 
+    print(poly)
+    return(poly)
+poly = '-13.39 2.0 17.5 3.0 1.0'
+polyderi = compute_deriv(poly)
+print(polyderi)
 #    """
 #    Computes and returns the derivative of a polynomial function. If the
 #    derivative is 0, returns (0.0,).
