@@ -1,5 +1,5 @@
 # 6.00 Problem Set 3
-# 
+#
 # Hangman
 #
 
@@ -15,7 +15,7 @@ WORDLIST_FILENAME = "words.txt"
 def load_words():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
-    
+
     Depending on the size of the word list, this function may
     take a while to finish.
     """
@@ -40,9 +40,12 @@ def choose_word(wordlist):
 # end of helper code
 # -----------------------------------
 
-# actually load the dictionary of words and point to it with 
+# actually load the dictionary of words and point to it with
 # the wordlist variable so that it can be accessed from anywhere
 # in the program
 wordlist = load_words()
+word = (choose_word(wordlist))
+word = map(None, word.split())
+print(word[2])
 
 # your code begins here!
