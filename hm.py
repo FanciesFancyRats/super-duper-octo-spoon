@@ -50,29 +50,51 @@ letters = []
 guessList = []
 win = 0
 attemptNumber = 0
+hit = 0
+numberCorrect = 0
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+helper = []
+for i in range(len(alphabet)):
+    helper.append(alphabet[i])
+print(len(helper))
 print word
 for i in range(length):
     letters.append(word[i])
 for i in range(length):
     guessList.append("_")
 while((attemptNumber < 6) and (win == 0)):
+    hit = 0
+    numberCorrect = 0
+    print("Here are your remaining letter: ")
+    print(helper)
     print(guessList)
-    guess = raw_input("Please input a word: ")
-    if (guess == word):
-        win = 1
-        print("Correct, you win")
-    if (guess != word):
+    guess = raw_input("Please input a letter: ")
+    for i in range(length):
+        if guess == letters[i]:
+            hit = 1
+            guessList[i] = guess
+    for i in range(len(helper)):
+        if guess == helper[i]:
+            remove = i
+    del helper[remove]
+    for i in range(length):
+        if guessList[i] == letters[i]:
+            numberCorrect = numberCorrect + 1
+    if hit == 1:
+        print("Correct ") ,
+        print(guess) ,
+        print("is in the word")
+    if hit == 0:
+        print("Incorrect ") ,
+        print(guess) ,
+        print("is not in the word")
         attemptNumber = attemptNumber + 1
-        if(len(guess) >= len(word)):
-            for i in range(length):
-                if guess[i] == letters[i]:
-                    guessList[i] = letters[i]
-        if(len(word)>len(guess)):
-            print(len(word)) ,
-            print">" ,
-            print(len(guess))
-            for i in range(len(guess)):
-                print i
-                if guess[i] == letters[i]:
-                    guessList[i] = letters[i]
-        print("Try again: ")
+    if (numberCorrect == length):
+        win = 1
+        print("You've won")
+
+
+
+
+
+# your code begins here!
