@@ -5,7 +5,7 @@
 import string
 import random
 
-WORDLIST_FILENAME = "words2.txt"
+WORDLIST_FILENAME = "words.txt"
 
 # -----------------------------------
 # Helper code
@@ -120,13 +120,38 @@ def build_coder(shift):
     'v': 'y', 'y': 'a', 'x': ' ', 'z': 'b'}
     (The order of the key-value pairs may be different.)
     """
-    ### TODO.
+    if(abs(shift) > 27):
+        shift = 0
+        print("Shift is out of bounds.")
+    dicti = {}
+    #making the dictionary of lowercase letters
+    for i in range(len(lowercase)):
+        x = lowercase[i]
+        if (i+shift < len(lowercase)):
+            y = lowercase[i+shift]
+            dicti.update({x:y})
+        else:
+            z = lowercase[i+shift-len(lowercase)]
+            dicti.update({x:z})
+    #making the dictionary of uppercase letters
+    if abs(shift) == 27:
+        print("abs(shift)")
+        if shift > 0:
+            shift = shift - 1
+        if shift < 0:
+            shift = shift + 1
 
-    alphabet = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    helper = []
-    for i in range(len(alphabet)):
-        helper.append(alphabet[i])
-    print(helper[1+shift])
+    for i in range(len(uppercase)):
+        x = uppercase[i]
+        if (i+shift < len(uppercase)):
+            y = uppercase[i+shift]
+            dicti.update({x:y})
+        else:
+            z = uppercase[i+shift-len(lowercase)]
+            dicti.update({x:z})
+
+    return(dicti)
+    ### TODO.
 
 def build_encoder(shift):
     """
@@ -155,6 +180,13 @@ def build_encoder(shift):
 
     HINT : Use build_coder.
     """
+    if(shift < 27) and (shift > 0):
+        dicti = build_coder(shift)
+    else:
+        print("shift is out of bounds.")
+        dicti = build_coder(0)
+    return(dicti)
+
     ### TODO.
 
 def build_decoder(shift):
@@ -185,6 +217,13 @@ def build_decoder(shift):
 
     HINT : Use build_coder.
     """
+    if(shift < 27) and (shift > 0):
+        dicti = build_coder(shift*-1)
+    else:
+        print("shift is out of bounds.")
+        dicti = build_coder(0)
+    return(dicti)
+
     ### TODO.
 
 
@@ -328,10 +367,16 @@ def decrypt_fable():
     returns: string - fable in plain text
     """
     ### TODO.
+lowercase = "abcdefghijklmnopqrstuvwxyz "
+uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+thing = build_encoder(1)
+print(thing)
+thing = build_decoder(1)
+print(thing)
 
 
 
-build_coder(2)
 #What is the moral of the story?
 #
 #
