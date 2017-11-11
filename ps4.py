@@ -5,7 +5,7 @@
 import string
 import random
 
-WORDLIST_FILENAME = "words.txt"
+WORDLIST_FILENAME = "/sdcard/qpython/scripts/super-duper-octo-spoon/words2.txt"
 
 # -----------------------------------
 # Helper code
@@ -242,8 +242,13 @@ def apply_coder(text, coder):
     'Hello, world!'
     """
     ### TODO.
-
-
+    t = []
+    for i in range(len(text)):
+        t.append(text[i])
+    print(t)
+    delimiter = ""
+    s = delimiter.join(t)
+    print(s)
 def apply_shift(text, shift):
     """
     Given a text, returns a new text Caesar shifted by the given shift
@@ -370,10 +375,8 @@ def decrypt_fable():
 lowercase = "abcdefghijklmnopqrstuvwxyz "
 uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-thing = build_encoder(1)
-print(thing)
-thing = build_decoder(1)
-print(thing)
+thing = build_coder(1)
+apply_coder("Hello world", thing)
 
 
 
