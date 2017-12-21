@@ -92,7 +92,7 @@ while((attemptNumber < 6) and (win == 0)):
     if (numberCorrect == length):
         win = 1
         print("You've won")
-
+print(word)
 
 
 
