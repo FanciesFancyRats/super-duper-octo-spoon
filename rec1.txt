@@ -1,0 +1,14 @@
+syntax is the 'grammer' (the way the language and tokens are put together to form statments) of the programming language. a + b(valid) vs a b + (invalid) 
+	"I am" vs "I cat"
+static semantics, example (2 + "Hello world") The commands are valid but the individual tokens aren't usable in the command. "I are cool" vs "I am cool"
+semantics error, runs but doesn't do what you want it to do. "Chicken ate me" vs "I ate chicken"
+
+sequence of expression
+
+variable name, assignment opperator, string literal
+myVar = "a string"
+operand are literal and variables etc
+opperator are things like = 'do things to things'
+everything in python is an object
+objects have types int, float, string, boolean
+@ 14:53 
