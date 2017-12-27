@@ -14,4 +14,5 @@ everything in python is an object
 objects have types int, float, string, boolean
 @ 14:53
 
- 
+@ 47:18
+# cube.py need fixed for simplicities sake  
