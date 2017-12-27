@@ -15,4 +15,6 @@ objects have types int, float, string, boolean
 @ 14:53
 
 @ 47:18
-# cube.py need fixed for simplicities sake  
+# cube.py need fixed for simplicities sake,
+# fixed now I need to check answer against rec1's to see if it can be simplified more.
+% is modulo operation and returns the remainder of division 

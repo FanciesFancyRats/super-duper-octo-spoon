@@ -1,3 +1,16 @@
 Programming languages are an abstraction form binary machine code and various types of assembly low level languages
 
+Decrementing function (garentes a loop will terminate)
+1) Map set of program variables to and int
+2) starts with a non-negative value
+3) When value <= 0, loop terminates
+4) Decreased each time through the loop
+
+In cube.py abs(x) - ans^3 is the decrementing function.
+(Does not always need to be a declared vairable)
+ex: 8 - 0 = 8
+    8 - 1^3 = 7
+    8 - 2^3 = 2
+    8 - 3^3 = -1 (stops here)
+Exhaustive enumeration, systematically checks for answers while interating.
 
