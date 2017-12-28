@@ -1,6 +1,6 @@
 x = int(raw_input('enter an integer: :'))
 ans = 0
-while ans*ans*ans < abs(x):
+while ans*ans*ans < x:
     ans = ans + 1
     print 'current guess is' , ans
 

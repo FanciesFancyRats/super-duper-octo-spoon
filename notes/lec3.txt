@@ -13,4 +13,7 @@ ex: 8 - 0 = 8
     8 - 2^3 = 2
     8 - 3^3 = -1 (stops here)
 Exhaustive enumeration, systematically checks for answers while interating.
+Aka "brute force". Uses the strengths of a computer. Since computer can process hundred of millions of operations in seconds
+It is not always the best solution, but does come up often.
+@12:00
 
