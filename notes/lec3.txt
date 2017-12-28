@@ -16,4 +16,7 @@ Exhaustive enumeration, systematically checks for answers while interating.
 Aka "brute force". Uses the strengths of a computer. Since computer can process hundred of millions of operations in seconds
 It is not always the best solution, but does come up often.
 @12:00
-
+Bisection search is another techique
+1) Cut search space in half each interation
+	as oppsed to exahustive enumeratiation which cuts search space by incriment each time
+For a bisection search how much you are dividing determins the search space. In square.py ex: 12345/0.015**2 ~ 26.8
