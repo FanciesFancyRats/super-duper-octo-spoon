@@ -21,7 +21,7 @@ epsilion = 0.01
 epsilion = float(epsilion)
 numGuesses = 0
 low = 0.0
-high = x
+high = max(x, 1.0)
 
 print 'type(x) ', type(x)
 print 'type(epsilion)', type(epsilion)

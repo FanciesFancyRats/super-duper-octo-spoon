@@ -1,0 +1,9 @@
+Funtions provide:
+Decomposition- creates structre, break program up into moduals
+	modules - self-contained, reusable
+Abstraction - suppreses detail, allows us to use ours and others code easily
+Fuction has Name, body, parameters
+In the example the formal parameter, x, is bound to the value of the actual parameter, x
+Upon entry, a new scope is created
+scope is a mapping of names to objects
+

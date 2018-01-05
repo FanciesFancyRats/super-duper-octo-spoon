@@ -8,8 +8,8 @@ def paymentCycle(payment, balance, air):
     return(balance)
 #balance = float(round(raw_input('Please enter the balance: '), 2))
 #air = float(round(raw_input('Please enter annual intrest rate: '), 2))
-balance = 320000
-air = .2
+balance = 999999
+air = .18
 
 lowerBound = round(balance/12.0, 2)
 upperBound = float(round((balance * (1 + (air/12))**12)/12, 2))
@@ -17,9 +17,9 @@ bisection = float(round((lowerBound + upperBound)/2, 2))
 x = 0
 
 while x < 99:
-    testLower = paymentCycle(lowerBound, balance, air)
-    testUpper = paymentCycle(upperBound, balance, air)
-    testBisection = paymentCycle(bisection, balance, air)
+    testLower = round(paymentCycle(lowerBound, balance, air), 2)
+    testUpper = round(paymentCycle(upperBound, balance, air), 2)
+    testBisection = round(paymentCycle(bisection, balance, air), 2)
 
     print 'upperbound returns: ', testUpper,'payment: ', upperBound 
     print 'bisection returns: ', testBisection,'payment: ', bisection 
@@ -28,10 +28,15 @@ while x < 99:
     if abs(testBisection) < 0.2:
         break
     if abs(testLower) - abs(testBisection) < abs(testUpper) - abs(testBisection):
-        upperBound = bisection
-        bisection = (lowerBound + upperBound) / 2
+        print 'line 31'
+        upperBound = round(bisection, 2)
+        bisection = round((lowerBound + upperBound) / 2, 2)
     else:
-        lowerBound = bisection
-        bisection = (lowerBound + upperBound) / 2
+        print 'line 34'
+        lowerBound = round(bisection, 2)
+        bisection = round((lowerBound + upperBound) / 2, 2)
     x += 1
-print testBisection
+print 'payment: ', bisection
+print 'balance: ', testBisection
+#We are having some sort of rounding error, my results are off by about 0.02 from the test cases.
+#Not sure where this is happening, might ask around or come back later. Would definetly like to move on though.
