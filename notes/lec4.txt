@@ -6,4 +6,30 @@ Fuction has Name, body, parameters
 In the example the formal parameter, x, is bound to the value of the actual parameter, x
 Upon entry, a new scope is created
 scope is a mapping of names to objects
+assert is a command that evaluates true or false, it if evaluates to false it stops
+ex x = 2
+assert x > 0 (true)
+...etc
 
+would run
+
+Step through of f1:
+	First thing interpreter does is build a scope
+	First finds the name f1, maps to an object that is a function
+	Then stop
+	Then it will notice that it has an ojbect x which will be assigned the value 3
+	Then it will notice it has an object z which it assigns the funtion f1 which and will then start to execute the funtion, which then creates another scope
+	f1 scope: will have another name g, which is bound to some code
+	x is bound to 3
+	it invokes g, which creates another scope
+	g scope: x bound to 'abc'
+	scopes are called stack frames
+	[g]
+	[f1]
+	[main scope]
+Stacks operate in last in first out
+Can I get a stack viewer?
+Once a function resolves it is taken out of the stack
+Strings are non-scalar values
+scalar values cannot be decomposed
+s = 'abc'

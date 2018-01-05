@@ -1,0 +1,19 @@
+for [keyword] i [variable] in[keyword] [inumerable object]
+for loops iterate over numerable objects.
+range function takes 1-3 paramaters and returns 1
+	first peramiter is inclusive second is exclusive
+range(1, 100, 2)
+1 start inclusive, 100 end exclusive, 2 step
+starts from 1 ends 99 and increments 2?
+in python's help module [] are option peramiters
+tuple is a non-scalar data type that can hold many items
+	scalar can hold one element
+	non-scalar data type can hold more than one item
+python will accept negative 'indecies' for navigating tuples, it will start at the end of the tuple
+	tuple1 = (1, 2, 3)
+	tuple1[-1] -> 2?
+	nope, 3
+immutable data types are unchangable, changing a tuple after it has been assigned will give the error, "this data type does not support assignment"
+slicing [(begining location):(end location((exclusive!)))]
+	one pass the range we want
+@ 21:29
