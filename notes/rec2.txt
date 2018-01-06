@@ -17,3 +17,6 @@ immutable data types are unchangable, changing a tuple after it has been assigne
 slicing [(begining location):(end location((exclusive!)))]
 	one pass the range we want
 @ 21:29
+slice [x:] slice from x to end of index
+slice [:] take slice that is entire index
+you can use negative indicies in slice, they start from the last like tuple[-1]
