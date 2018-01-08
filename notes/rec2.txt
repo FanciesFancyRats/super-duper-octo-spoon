@@ -20,3 +20,8 @@ slicing [(begining location):(end location((exclusive!)))]
 slice [x:] slice from x to end of index
 slice [:] take slice that is entire index
 you can use negative indicies in slice, they start from the last like tuple[-1]
+() is the grouping operator in python, if you need to make a tuple of one item (x,)
+strings are also unmutable, support interation. Strings have built in function uppercase lowercase find and replace.
+	check documentation for more
+For loop and break statment can be used in place of while loop
+

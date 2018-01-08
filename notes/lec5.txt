@@ -1,0 +1,27 @@
+tuples list are orderded sequences of objects
+dictionaries are not ordered
+lists are mutable
+to append a list use:
+L.append(e)
+
+is not assigning is actually changing the list
+append is a method, think of it as an alternative syntax for a function
+instead of append(L, e)
+L.append(e)
+for i in list:
+will do something to each item in the list
++ will combine multiple lists
+.sort is a built in function that will put items in alphabetical order
+assignment changes binding, mutation changes values
+L1 = [2]
+L2 = [L1, L1]
+print L2 >>> [2, 2]
+L1[0] = 3
+print L2 >> [3, 3]
+L2[0] = 'a'
+print L2 >> [a, 3]
+L1 = [2]
+print L2 >> [a, 3]
+L1 = [2] is assigning L1 to [2] but does not mutate it as L1[0] = [2] would.
+alias is one object with multiple names
+
