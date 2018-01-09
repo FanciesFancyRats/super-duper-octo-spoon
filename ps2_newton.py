@@ -17,11 +17,10 @@ def evaluate_poly(poly, x):
     x: number
     returns: float
     """
-    # TO DO ... 
     ans = 0
     for i in range(5):
         ans = ans + ((x**i)*(poly[i]))
-        print ans
+        #print ans
     return ans
 
 def compute_deriv(poly):
@@ -37,7 +36,12 @@ def compute_deriv(poly):
     poly: tuple of numbers, length > 0
     returns: tuple of numbers
     """
-    # TO DO ... 
+    # TO DO ...
+    ans = tuple() 
+    for i in range(5):
+        if i != 0:
+            ans = ans + ((poly[i]*i),)
+    return ans
 
 def compute_root(poly, x_0, epsilon):
     """
@@ -60,4 +64,8 @@ def compute_root(poly, x_0, epsilon):
     returns: tuple (float, int)
     """
     # TO DO ... 
-evaluate_poly((0.0, 0.0, 5.0, 9.3, 7.0), -13)
+number = evaluate_poly((0.0, 0.0, 5.0, 9.3, 7.0), -13)
+print number
+poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
+polyTest = compute_deriv(poly)
+print polyTest
