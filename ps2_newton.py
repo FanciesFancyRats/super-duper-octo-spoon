@@ -18,7 +18,7 @@ def evaluate_poly(poly, x):
     returns: float
     """
     ans = 0
-    for i in range(5):
+    for i in range(len(poly)):
         ans = ans + ((x**i)*(poly[i]))
         #print ans
     return ans
@@ -36,7 +36,6 @@ def compute_deriv(poly):
     poly: tuple of numbers, length > 0
     returns: tuple of numbers
     """
-    # TO DO ...
     ans = tuple() 
     for i in range(5):
         if i != 0:
@@ -64,8 +63,20 @@ def compute_root(poly, x_0, epsilon):
     returns: tuple (float, int)
     """
     # TO DO ... 
-number = evaluate_poly((0.0, 0.0, 5.0, 9.3, 7.0), -13)
-print number
-poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
-polyTest = compute_deriv(poly)
-print polyTest
+    x = 1
+    x_1 = x_0
+    root = tuple()
+    while (not within_epsilon(evaluate_poly(poly, x_1), epsilon)) and x < 99:
+        #x1 = x0 - f(x0)/f'(x0)
+        x_0 = x_1
+        x_1 = x_0 - (evaluate_poly(poly, x_0)/evaluate_poly(compute_deriv(poly), x_0))
+        x += 1
+        root = (x_1, x)
+    return root
+        
+
+
+
+def within_epsilon(value, epsilon):
+    return (abs(value) <= epsilon)
+print compute_root((-13.39, 0.0, 17.5, 3.0, 1.0), 0.1, .0001)
