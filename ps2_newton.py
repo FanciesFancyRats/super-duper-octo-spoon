@@ -62,7 +62,6 @@ def compute_root(poly, x_0, epsilon):
     epsilon: float > 0
     returns: tuple (float, int)
     """
-    # TO DO ... 
     x = 1
     x_1 = x_0
     root = tuple()
