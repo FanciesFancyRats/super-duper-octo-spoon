@@ -50,13 +50,14 @@ word = choose_word(wordlist)
 word = word.lower()
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 def hangman(word):
+    lettersGuessed = 0
     print "Welcome to the game, Hangman!"
     print "I man thinking of a word that is ", len(word), "letters long."
     print word
     #creating blank spaces
-    guessed = tuple()
+    guessed = list()
     for i in range (len(word)):
-            guessed = guessed + ("_",)
+            guessed.append("_")
     #creating available letters
     helper = list()
     for x in range (len(alphabet)):
@@ -64,6 +65,7 @@ def hangman(word):
     guesses = 8
     win = False
     while (guesses > 0) and (not win):
+        correct = False
         print "----------------------------------------------------------------------------"
         #For good grammer
         if guesses > 1:
@@ -73,8 +75,29 @@ def hangman(word):
         print "Avaliable letters: ",
         for j in range (len(helper)):
             print helper[j],
-        
-        guesses -= 1
-        print" "
+        print " "
+        guess = raw_input('Please enter a letter: ')
+        if len(guess) > 1:
+            guess = guess[0]
+       #check if character is in string
+        for i in range (len(word)):
+           if word[i] == guess[0]:
+               correct = True
+               guessed[i] = guess[0]
+               lettersGuessed += 1
+        #TO-DO, figure out how to get rid of specific item in list
+        if guess in helper:
+            helper.delitem(guess)
+        if lettersGuessed < len(word):
+            if correct:
+                print "Correct!"
+            if not correct:
+                print "Incorrect"
+                guesses -= 1
+        else:
+            print "You've won!"
+            break
+        print guessed
+        print lettersGuessed
 
 hangman(word)
