@@ -53,7 +53,6 @@ def hangman(word):
     lettersGuessed = 0
     print "Welcome to the game, Hangman!"
     print "I man thinking of a word that is ", len(word), "letters long."
-    print word
     #creating blank spaces
     guessed = list()
     for i in range (len(word)):
@@ -81,23 +80,25 @@ def hangman(word):
             guess = guess[0]
        #check if character is in string
         for i in range (len(word)):
-           if word[i] == guess[0]:
+            if word[i] == guess[0] and guess in helper:
                correct = True
                guessed[i] = guess[0]
                lettersGuessed += 1
         #TO-DO, figure out how to get rid of specific item in list
         if guess in helper:
-            helper.delitem(guess)
+            helper.remove(guess)
         if lettersGuessed < len(word):
             if correct:
                 print "Correct!"
+                print guessed 
             if not correct:
                 print "Incorrect"
                 guesses -= 1
+                print guessed
         else:
             print "You've won!"
+            print guessed
             break
-        print guessed
-        print lettersGuessed
+    print word
 
 hangman(word)
