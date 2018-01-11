@@ -21,3 +21,4 @@ b^n = {b*b*b...b}n
     = b * {b...b}n-1
     b^n = b*b^n-1 if n > 0
 	  if n = 0 b = 1
+
