@@ -1,0 +1,23 @@
+Recursion
+Dicts let you associate any data type with a key
+the keys can be tuples, list, strings
+breaking code into function is an example of "modular abstraction"
+makes it eariser to use re-use code, and easier to debug
+and example of "divide and conqure"
+	-small problems are easier to solve
+	-solutions to small problems can easily be combined
+	 to solve the big problem
+Recursion
+	-Way of describing or defining problems
+	-Way of desinging solutions(d&c)
+natural us born citizen
+	1 born in us citizen
+	2 one parent us citizen
+Base case
+	-typically direct answer
+Recursive (inductive case)
+	-reduce to simpler version of same problem plus other simple operations
+b^n = {b*b*b...b}n
+    = b * {b...b}n-1
+    b^n = b*b^n-1 if n > 0
+	  if n = 0 b = 1
