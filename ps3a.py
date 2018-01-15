@@ -86,7 +86,7 @@ def get_word_score(word, n):
     if n == len(word):
         score += 50
     return score
-#
+# Does this work?
 # Make sure you understand how this function works and what it does!
 #
 def display_hand(hand):
@@ -171,8 +171,22 @@ def is_valid_word(word, hand, word_list):
     hand: dictionary (string -> int)
     word_list: list of lowercase strings
     """
-    if word in word_list:
-        print "it's a word"
+    if not word in word_list:
+        return False
+    else:
+        for k,v in hand.items():
+            for i in range(len(word)):
+                if word[i] not in hand:
+                    print word[i], "in", hand, ": ", word[i] in hand
+                    return False
+            print(k, v)
+            if k not in word:
+                pass
+            #elif:
+        return True
+            
+
+        
 
 def calculate_handlen(hand):
     handlen = 0
@@ -212,6 +226,17 @@ def play_hand(hand, word_list):
       
     """
     # TO DO ...
+    display_hand(hand)
+    valid = False
+    while (not valid):
+        word = raw_input('Please enter a word: ')
+        if not is_valid_word(word, hand, word_list ):
+            print 'Word is not valid.'
+            valid = False
+        else:
+            valid = True
+            print valid
+
 
 #
 # Problem #5: Playing a game
@@ -242,4 +267,5 @@ if __name__ == '__main__':
     play_game(word_list)
 #TEST
 print is_valid_word('hello', {'a':0}, word_list)
-
+hand = {'a':1, 'b':2, 'c':0, 't':1}
+play_hand(hand, word_list)
