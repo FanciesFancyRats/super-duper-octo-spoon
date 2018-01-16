@@ -172,19 +172,18 @@ def is_valid_word(word, hand, word_list):
     hand: dictionary (string -> int)
     word_list: list of lowercase strings
     """
-    if not word in word_list:
-        return False
-    else:
-        for k,v in hand.items():
-            for i in range(len(word)):
-                if word[i] not in hand:
-                    print word[i], "in", hand, ": ", word[i] in hand
-                    return False
-            print(k, v)
-            if k not in word:
-                pass
-            #elif:
-        return True
+    testDict = {}
+    for i in range(len(word)):
+        testDict[word[i]] = testDict.get(word[i], 0) + 1
+    print testDict
+    for i in range(len(word)):
+        if word[i] not in hand:
+            print word[i], " is not in your hand"
+            return False 
+    for k, v in hand.iteritems():
+        if not testDict[k] <= hand[k]:
+            print "not enough ", testDict[k], "in hand"
+
             
 
         
@@ -268,5 +267,6 @@ if __name__ == '__main__':
     play_game(word_list)
 #TEST
 print is_valid_word('hello', {'a':0}, word_list)
-hand = {'a':1, 'b':2, 'c':0, 't':1}
-play_hand(hand, word_list)
+hand = {'h':1, 'e':1, 'l':1, 'o':1}
+#play_hand(hand, word_list)
+is_valid_word('hello', hand, word_list)
