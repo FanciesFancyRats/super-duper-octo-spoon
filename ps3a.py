@@ -87,7 +87,6 @@ def get_word_score(word, n):
     if n == len(word):
         score += 50
     return score
-# Does this work?
 # Make sure you understand how this function works and what it does!
 #
 def display_hand(hand):
@@ -172,22 +171,36 @@ def is_valid_word(word, hand, word_list):
     hand: dictionary (string -> int)
     word_list: list of lowercase strings
     """
-    testDict = {}
+    lettersInWord = list()
+    lettersInHand = list()
+    handDict = dict()
+    #testing if the entered word is in word_list
+    if word in word_list:
+        print "word is valid"
+    else:
+        print "word is invalid"
+    #creating list of letters in hand and in entered word
+    #to compare and return false if letters not in hand
     for i in range(len(word)):
-        testDict[word[i]] = testDict.get(word[i], 0) + 1
-    print testDict
+        lettersInWord.append(word[i])
+    for k, v in hand.items():
+        lettersInHand.append(k)
+    print "letters in word: ", lettersInWord
+    print "letters in hand: ", lettersInHand
     for i in range(len(word)):
-        if word[i] not in hand:
-            print word[i], " is not in your hand"
-            return False 
-    for k, v in hand.iteritems():
-        if not testDict[k] <= hand[k]:
-            print "not enough ", testDict[k], "in hand"
+        if not word[i] in lettersInHand:
+            print word[i], " not in hand"
 
-            
-
-        
-
+    for i in range(len(word)):
+        handDict[word[i]] = handDict.get(word[i], 0) + 1 
+    print "----"
+    print handDict
+    print "----"
+    #trying to compare the word and hand to see if the hand has enough of a letter
+    for k in handDict:
+        for l in hand:
+            if l == k:
+                print "word: "
 def calculate_handlen(hand):
     handlen = 0
     for v in hand.values():
@@ -267,6 +280,7 @@ if __name__ == '__main__':
     play_game(word_list)
 #TEST
 print is_valid_word('hello', {'a':0}, word_list)
-hand = {'h':1, 'e':1, 'l':1, 'o':1}
+hand = {'h':1, 'e':1, 'l':2, 'o':1}
 #play_hand(hand, word_list)
 is_valid_word('hello', hand, word_list)
+display_hand(hand)
