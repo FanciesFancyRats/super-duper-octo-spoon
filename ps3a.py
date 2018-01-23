@@ -10,7 +10,7 @@ import string
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
-HAND_SIZE = 7
+HAND_SIZE = 12
 
 SCRABBLE_LETTER_VALUES = {
     'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
@@ -175,32 +175,31 @@ def is_valid_word(word, hand, word_list):
     lettersInHand = list()
     handDict = dict()
     #testing if the entered word is in word_list
-    if word in word_list:
-        print "word is valid"
-    else:
+    if not word in word_list:
         print "word is invalid"
+        return False
     #creating list of letters in hand and in entered word
     #to compare and return false if letters not in hand
     for i in range(len(word)):
         lettersInWord.append(word[i])
     for k, v in hand.items():
         lettersInHand.append(k)
-    print "letters in word: ", lettersInWord
-    print "letters in hand: ", lettersInHand
     for i in range(len(word)):
         if not word[i] in lettersInHand:
             print word[i], " not in hand"
+            return False
 
     for i in range(len(word)):
         handDict[word[i]] = handDict.get(word[i], 0) + 1 
-    print "----"
-    print handDict
-    print "----"
     #trying to compare the word and hand to see if the hand has enough of a letter
     for k in handDict:
         for l in hand:
-            if l == k:
-                print "word: "
+            if k == l:
+                if handDict[k] > hand[l]:
+                    print "not enough ", l
+                    return False
+    return True
+    
 def calculate_handlen(hand):
     handlen = 0
     for v in hand.values():
@@ -239,17 +238,29 @@ def play_hand(hand, word_list):
       
     """
     # TO DO ...
+    score = 0
+    
     display_hand(hand)
     valid = False
-    while (not valid):
+    word = raw_input('Please enter a word: ')
+    while (not is_valid_word(word, hand, word_list)):
         word = raw_input('Please enter a word: ')
         if not is_valid_word(word, hand, word_list ):
             print 'Word is not valid.'
-            valid = False
-        else:
-            valid = True
-            print valid
-
+    score += get_word_score(word, HAND_SIZE)
+    print score
+    update_hand(hand, word)
+    print hand_is_empty(hand)
+def hand_is_empty(hand):
+    #Returns state of hand in boolean
+    inHand = 0
+    for k, v in hand.items():
+        inHand += v
+    if v > 0:
+        return False
+    else:
+        return True
+        
 
 #
 # Problem #5: Playing a game
@@ -279,8 +290,6 @@ if __name__ == '__main__':
     word_list = load_words()
     play_game(word_list)
 #TEST
-print is_valid_word('hello', {'a':0}, word_list)
-hand = {'h':1, 'e':1, 'l':2, 'o':1}
+hand = {'h':1, 'e':1, 'l':1, 'o':1}
 #play_hand(hand, word_list)
-is_valid_word('hello', hand, word_list)
-display_hand(hand)
+play_hand(hand, word_list)
