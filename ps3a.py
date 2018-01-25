@@ -175,7 +175,7 @@ def is_valid_word(word, hand, word_list):
     lettersInHand = list()
     handDict = dict()
     #testing if the entered word is in word_list
-    if not word in word_list:
+    if not word in word_list and word != ".":
         print "word is invalid"
         return False
     #creating list of letters in hand and in entered word
@@ -185,7 +185,7 @@ def is_valid_word(word, hand, word_list):
     for k, v in hand.items():
         lettersInHand.append(k)
     for i in range(len(word)):
-        if not word[i] in lettersInHand:
+        if not word[i] in lettersInHand and word != ".":
             print word[i], " not in hand"
             return False
 
@@ -194,10 +194,12 @@ def is_valid_word(word, hand, word_list):
     #trying to compare the word and hand to see if the hand has enough of a letter
     for k in handDict:
         for l in hand:
-            if k == l:
+            if k == l and word != ".":
                 if handDict[k] > hand[l]:
                     print "not enough ", l
                     return False
+    if word == ".":
+        print "finished"
     return True
     
 def calculate_handlen(hand):
@@ -239,24 +241,32 @@ def play_hand(hand, word_list):
     """
     # TO DO ...
     score = 0
+    wordAndScore = dict()
+    word = ""
+    while not hand_is_empty(hand) and not word == ".":
+
     
-    display_hand(hand)
-    valid = False
-    word = raw_input('Please enter a word: ')
-    while (not is_valid_word(word, hand, word_list)):
+        display_hand(hand)
+        valid = False
         word = raw_input('Please enter a word: ')
-        if not is_valid_word(word, hand, word_list ):
-            print 'Word is not valid.'
-    score += get_word_score(word, HAND_SIZE)
-    print score
-    update_hand(hand, word)
-    print hand_is_empty(hand)
+        while (not is_valid_word(word, hand, word_list)):
+            word = raw_input('Please enter a word: ')
+            # What was here??
+            if not is_valid_word(word, hand, word_list ):
+        if word != ".":
+            wordAndScore[word] = get_word_score(word, HAND_SIZE)
+            score += get_word_score(word, HAND_SIZE)
+            print score
+            update_hand(hand, word)
+    for k, v in wordAndScore.items():
+        print k, "for ", v, "points"
+    print "Total score: ", score
 def hand_is_empty(hand):
     #Returns state of hand in boolean
     inHand = 0
     for k, v in hand.items():
         inHand += v
-    if v > 0:
+    if inHand > 0:
         return False
     else:
         return True
@@ -290,6 +300,6 @@ if __name__ == '__main__':
     word_list = load_words()
     play_game(word_list)
 #TEST
-hand = {'h':1, 'e':1, 'l':1, 'o':1}
+hand = deal_hand(HAND_SIZE)
 #play_hand(hand, word_list)
 play_hand(hand, word_list)
