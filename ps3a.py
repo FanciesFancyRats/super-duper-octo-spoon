@@ -4,7 +4,14 @@
 # Created by: Kevin Luu <luuk> and Jenna Wiens <jwiens>
 #
 #
-
+class bcolors:
+    BLUE = '\033[34m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    ENDC = '\033[0m'
 import random
 import string
 
@@ -103,8 +110,8 @@ def display_hand(hand):
     """
     for letter in hand.keys():
         for j in range(hand[letter]):
-             print letter,              # print all on the same line
-    print                               # print an empty line
+             print bcolors.BLUE ,  letter,              # print all on the same line
+    print bcolors.ENDC                               # print an empty line
 
 #
 # Make sure you understand how this function works and what it does!
@@ -176,7 +183,7 @@ def is_valid_word(word, hand, word_list):
     handDict = dict()
     #testing if the entered word is in word_list
     if not word in word_list and word != ".":
-        print "word is invalid"
+        print bcolors.RED, "word is invalid", bcolors.ENDC
         return False
     #creating list of letters in hand and in entered word
     #to compare and return false if letters not in hand
@@ -186,7 +193,7 @@ def is_valid_word(word, hand, word_list):
         lettersInHand.append(k)
     for i in range(len(word)):
         if not word[i] in lettersInHand and word != ".":
-            print word[i], " not in hand"
+            print bcolors.RED,  word[i], " not in hand", bcolors.ENDC
             return False
 
     for i in range(len(word)):
@@ -196,10 +203,10 @@ def is_valid_word(word, hand, word_list):
         for l in hand:
             if k == l and word != ".":
                 if handDict[k] > hand[l]:
-                    print "not enough ", l
+                    print bcolors.RED,  "not enough ", l, bcolors.ENDC
                     return False
-    if word == ".":
-        print "finished"
+    if word == "." or hand_is_empty(hand):
+        print bcolors.YELLOW, "finished", bcolors.ENDC
     return True
     
 def calculate_handlen(hand):
@@ -251,16 +258,16 @@ def play_hand(hand, word_list):
         word = raw_input('Please enter a word: ')
         while (not is_valid_word(word, hand, word_list)):
             word = raw_input('Please enter a word: ')
-            # What was here??
             if not is_valid_word(word, hand, word_list ):
+                pass
         if word != ".":
             wordAndScore[word] = get_word_score(word, HAND_SIZE)
             score += get_word_score(word, HAND_SIZE)
-            print score
+            print bcolors.MAGENTA, word, bcolors.ENDC, "for", bcolors.GREEN, get_word_score(word, HAND_SIZE), bcolors.ENDC, "points"
             update_hand(hand, word)
     for k, v in wordAndScore.items():
-        print k, "for ", v, "points"
-    print "Total score: ", score
+        print bcolors.MAGENTA, k, bcolors.ENDC, "for ", bcolors.GREEN,  v, bcolors.ENDC, "points"
+    print "Total score: ", bcolors.GREEN, score, bcolors.ENDC
 def hand_is_empty(hand):
     #Returns state of hand in boolean
     inHand = 0
@@ -291,15 +298,50 @@ def play_game(word_list):
 
     * If the user inputs anything else, ask them again.
     """
-    # TO DO...
+    hand = deal_hand(HAND_SIZE)
+    print "Welcome to 6.00 word game."
+    print "Enter n for a New hand, r to Retry the current hand, or e to Exit"
+    print "Your current hand is: ", display_hand(hand)
+    choice = raw_input("Please input your choice: ")
+    held_hand = hand
+    while choice != "e":
+        if choice == "r":
+            print choice
+            hand = held_hand.copy()
+            play_hand(hand, word_list)
+            print "Welcome to 6.00 word game."
+            print "Enter n for a New hand, r to Retry the current hand, or e to Exit"
+            print "Your current hand is: ", display_hand(held_hand)
+            choice = raw_input("Please input your choice: ")
+            if choice == "e":
+                break
+        elif choice == "n":
+            print choice
+            hand = deal_hand(HAND_SIZE) 
+            held_hand = hand.copy()
+            play_hand(hand, word_list)
+            print "Welcome to 6.00 word game."
+            print "Enter n for a New hand, r to Retry the current hand, or e to Exit"
+            print "Your current hand is: ", display_hand(held_hand)
+            choice = raw_input("Please input your choice: ")
+            if choice == "e":
+                break
+        elif choice == "e":
+            print choice
+            break
+        else:
+            print choice
+            print "I'm sorry I don't understand ", choice
+            choice = raw_input("Please input your choice: ")
+            if choice == "e":
+                break
+
+
+            
+
 
 #
 # Build data structures used for entire session and play game
 #
-if __name__ == '__main__':
-    word_list = load_words()
-    play_game(word_list)
-#TEST
-hand = deal_hand(HAND_SIZE)
-#play_hand(hand, word_list)
-play_hand(hand, word_list)
+word_list = load_words()
+play_game(word_list)
