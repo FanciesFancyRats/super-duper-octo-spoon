@@ -19,7 +19,26 @@ def comp_choose_word(hand, word_list):
     """
     # TO DO...
     # Use get_perms to brute for an answer that will return true for a copy of is_word_valid
-    get_perms(hand, HAND_SIZE)
+    stringsToTry = []
+    print "line 23"
+    for i in range(HAND_SIZE):
+        stringsToTry = stringsToTry + get_perms(hand, i)
+    wordsToTry = []
+    for i in range(len(stringsToTry)):
+        if is_valid_word(stringsToTry[i], hand, word_list):
+            wordsToTry.append(stringsToTry[i])
+            print stringsToTry[i]
+    print wordsToTry 
+    highScore = 0
+    word = ""
+    for i in range(len(wordsToTry)):
+        if get_word_score(wordsToTry[i], HAND_SIZE) > highScore:
+
+           highScore = get_word_score(wordsToTry[i], HAND_SIZE)
+           word = wordsToTry[i]
+    print "using ", word
+
+
 
 #
 # Problem #6B: Computer plays a hand
@@ -76,4 +95,4 @@ def play_game(word_list):
 #    word_list = load_words()
 #    play_game(word_list)
 hand = deal_hand(HAND_SIZE)
-print hand
+comp_choose_word(hand, word_list)
