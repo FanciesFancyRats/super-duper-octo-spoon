@@ -8,6 +8,7 @@ from perm import *
 # Problem #6A: Computer chooses a word
 #
 #
+
 def comp_choose_word(hand, word_list):
     """
 	Given a hand and a word_dict, find the word that gives the maximum value score, and return it.
@@ -17,6 +18,8 @@ def comp_choose_word(hand, word_list):
     word_list: list (string)
     """
     # TO DO...
+    # Use get_perms to brute for an answer that will return true for a copy of is_word_valid
+    get_perms(hand, HAND_SIZE)
 
 #
 # Problem #6B: Computer plays a hand
@@ -69,8 +72,8 @@ def play_game(word_list):
 #
 # Build data structures used for entire session and play game
 #
-if __name__ == '__main__':
-    word_list = load_words()
-    play_game(word_list)
-
-    
+#if __name__ == '__main__':
+#    word_list = load_words()
+#    play_game(word_list)
+hand = deal_hand(HAND_SIZE)
+print hand

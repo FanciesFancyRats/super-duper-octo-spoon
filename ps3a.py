@@ -343,5 +343,5 @@ def play_game(word_list):
 #
 # Build data structures used for entire session and play game
 #
-word_list = load_words()
-play_game(word_list)
+#word_list = load_words()
+#play_game(word_list)
