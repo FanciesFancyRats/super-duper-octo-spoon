@@ -63,7 +63,36 @@ def comp_play_hand(hand, word_list):
      word_list: list (string)
     """
     # TO DO ...    
-    
+    #Create a copy of is_valid_word, for the computer to use
+    #Looks like we can reuse most of the play_hand code, just swap
+    #raw_inputs for it's inputs.
+    score = 0
+    wordAndScore = dict()
+    word = ""
+    while not hand_is_empty(hand) and not word == ".":
+    display_hand(hand)
+    valid = False
+    word = raw_input('Please enter a word: ')
+    while (not is_valid_word(word, hand, word_list)):
+        word = raw_input('Please enter a word: ')
+        if not is_valid_word(word, hand, word_list ):
+            pass
+        if word != ".":
+            wordAndScore[word] = get_word_score(word, HAND_SIZE)
+            score += get_word_score(word, HAND_SIZE)
+            print bcolors.MAGENTA, word, bcolors.ENDC, "for", bcolors.GREEN, get_word_sc    ore(word, HAND_SIZE), bcolors.ENDC, "points"
+            update_hand(hand, word) 
+            for k, v in wordAndScore.items():
+                print bcolors.MAGENTA, k, bcolors.ENDC, "for ", bcolors.GREEN,  v, bcolors.ENDC,     "points"
+            print "Total score: ", bcolors.GREEN, score, bcolors.ENDC
+
+
+
+
+
+
+
+
 #
 # Problem #6C: Playing a game
 #
