@@ -53,7 +53,7 @@ def comp_choose_word(hand, word_list):
         if comp_is_valid_word(stringsToTry[i], hand, word_list):
             wordsToTry.append(stringsToTry[i])
             print stringsToTry[i]
-    print wordsToTry 
+    print 
     highScore = 0
     word = ""
     for i in range(len(wordsToTry)):
@@ -109,12 +109,14 @@ def comp_play_hand(hand, word_list):
     for k, v in wordAndScore.items():
         print bcolors.MAGENTA, k, bcolors.ENDC, "for ", bcolors.GREEN, v, bcolors.ENDC, "points"
         print "Total score: ", bcolors.GREEN, score, bcolors.ENDC
+        
+        return score
      
 #
 # Problem #6C: Playing a game
 #
 #
-def play_game(word_list):
+def comp_play_game(word_list):
     """Allow the user to play an arbitrary number of hands.
 
     1) Asks the user to input 'n' or 'r' or 'e'.
@@ -142,9 +144,51 @@ def play_game(word_list):
     while choice != "e":
         if choice == "r":
             hand = held_hand.copy()
-            print "Who goes first, you('u') or I('c')?"
-            ##Need to finis this branching path
+            turn_order(hand, word_list, held_hand)
+            print "Welcome to 6.00 word game~"
+            print "Enter n for a New hand, r to Retry the current hand, or e to Exit"
+            print "Our current hand is: ", display_hand(held_hand)
+            choice = raw_input("Please input your choice: ")
+ 
+        elif choice == "n":
+            hand = deal_hand(HAND_SIZE)
+            held_hand = hand.copy()
+            turn_order(hand, word_list, held_hand)
+            print "Welcome to 6.00 word game~"
+            print "Enter n for a New hand, r to Retry the current hand, or e to Exit"
+            print "Our current hand is: ", display_hand(held_hand)
+            choice = raw_input("Please input your choice: ")
+ 
+        elif choice == "e":
+            break
+        else:
+            print "I'm sorry I don't understand: ", choice
+
+
         
+def turn_order(hand, word_list, held_hand):
+    uScore = 0
+    cScore = 0
+    order = raw_input("Who goes first, you('u') or I('c')?")
+    #while order != 'u' or order != 'c':
+    #    print "I'm sorry I don't understand ", order
+    #    order = raw_input("Who goes first, you('u') or I('c')?")
+    if order == 'u':
+        print "Good luck~"
+        
+        uScore = play_hand(hand, word_list)
+        hand = held_hand.copy()
+        cScore = comp_play_hand(hand, word_list)
+        print "Your score: ", bcolors.BLUE, uScore, bcolors.ENDC
+        print "My score:   ", bcolors.GREEN, cScore, bcolors.ENDC 
+    elif order == 'c':
+        print "So polite~"
+
+        cScore = comp_play_hand(hand, word_list)
+        hand = held_hand.copy()
+        uScore = play_hand(hand, word_list)
+        print "My score:   ", bcolors.GREEN, cScore, bcolors.ENDC
+        print "Your score: ", bcolors.BLUE, uScore, bcolors.ENDC
 #
 # Build data structures used for entire session and play game
 #
@@ -152,4 +196,4 @@ def play_game(word_list):
 #    word_list = load_words()
 #    play_game(word_list)
 hand = deal_hand(HAND_SIZE)
-comp_play_hand(hand, word_list)
+comp_play_game(word_list)

@@ -268,6 +268,9 @@ def play_hand(hand, word_list):
     for k, v in wordAndScore.items():
         print bcolors.MAGENTA, k, bcolors.ENDC, "for ", bcolors.GREEN,  v, bcolors.ENDC, "points"
     print "Total score: ", bcolors.GREEN, score, bcolors.ENDC
+
+    return score
+
 def hand_is_empty(hand):
     #Returns state of hand in boolean
     inHand = 0
