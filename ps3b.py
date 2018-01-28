@@ -8,6 +8,31 @@ from perm import *
 # Problem #6A: Computer chooses a word
 #
 #
+def comp_is_valid_word(word, hand, word_list):
+    lettersInWord = list()
+    lettersInHand = list()
+    handDict = dict()
+
+    if not word in word_list and word != ".":
+        return False
+    for i in range(len(word)):
+        lettersInWord.append(word[i])
+    for k, v in hand.items():
+        lettersInHand.append(k)
+    for i in range(len(word)):
+        if not word[i] in lettersInHand and word != ".":
+            return False
+    for i in range(len(word)):
+        handDict[word[i]] = handDict.get(word[i], 0) + 1
+
+    for k in handDict:
+        for l in hand:
+            if k == l and word !=".":
+                if handDict[k] > hand[l]:
+                    return False
+    if word == "." or hand_is_empty(hand):
+        print bcolors.YELLOW, "finished", bcolors.ENDC
+    return True
 
 def comp_choose_word(hand, word_list):
     """
@@ -25,7 +50,7 @@ def comp_choose_word(hand, word_list):
         stringsToTry = stringsToTry + get_perms(hand, i)
     wordsToTry = []
     for i in range(len(stringsToTry)):
-        if is_valid_word(stringsToTry[i], hand, word_list):
+        if comp_is_valid_word(stringsToTry[i], hand, word_list):
             wordsToTry.append(stringsToTry[i])
             print stringsToTry[i]
     print wordsToTry 
@@ -36,7 +61,12 @@ def comp_choose_word(hand, word_list):
 
            highScore = get_word_score(wordsToTry[i], HAND_SIZE)
            word = wordsToTry[i]
-    print "using ", word
+    if not wordsToTry:
+        print "using  '.'"
+        return '.'
+    else:
+        print "using ", word
+        return word
 
 
 
@@ -63,36 +93,23 @@ def comp_play_hand(hand, word_list):
      word_list: list (string)
     """
     # TO DO ...    
-    #Create a copy of is_valid_word, for the computer to use
-    #Looks like we can reuse most of the play_hand code, just swap
-    #raw_inputs for it's inputs.
     score = 0
     wordAndScore = dict()
     word = ""
     while not hand_is_empty(hand) and not word == ".":
-    display_hand(hand)
-    valid = False
-    word = raw_input('Please enter a word: ')
-    while (not is_valid_word(word, hand, word_list)):
-        word = raw_input('Please enter a word: ')
-        if not is_valid_word(word, hand, word_list ):
-            pass
+
+        display_hand(hand)
+        valid = False
+        word = comp_choose_word(hand, word_list)
         if word != ".":
             wordAndScore[word] = get_word_score(word, HAND_SIZE)
             score += get_word_score(word, HAND_SIZE)
-            print bcolors.MAGENTA, word, bcolors.ENDC, "for", bcolors.GREEN, get_word_sc    ore(word, HAND_SIZE), bcolors.ENDC, "points"
-            update_hand(hand, word) 
-            for k, v in wordAndScore.items():
-                print bcolors.MAGENTA, k, bcolors.ENDC, "for ", bcolors.GREEN,  v, bcolors.ENDC,     "points"
-            print "Total score: ", bcolors.GREEN, score, bcolors.ENDC
-
-
-
-
-
-
-
-
+            print bcolors.MAGENTA, word, bcolors.ENDC, "for", bcolors.GREEN, get_word_score(word, HAND_SIZE), bcolors.ENDC, "points"
+            update_hand(hand, word)
+    for k, v in wordAndScore.items():
+        print bcolors.MAGENTA, k, bcolors.ENDC, "for ", bcolors.GREEN, v, bcolors.ENDC, "points"
+        print "Total score: ", bcolors.GREEN, score, bcolors.ENDC
+     
 #
 # Problem #6C: Playing a game
 #
@@ -116,6 +133,17 @@ def play_game(word_list):
     word_list: list (string)
     """
     # TO DO...
+    hand = deal_hand(HAND_SIZE)
+    print "Welcome to 6.00 word game~"
+    print "Enter n for a New hand, r to Retry the current hand, or e to Exit"
+    print "Our current hand is: ", display_hand(hand)
+    choice = raw_input("Please input your choice: ")
+    held_hand = hand.copy()
+    while choice != "e":
+        if choice == "r":
+            hand = held_hand.copy()
+            print "Who goes first, you('u') or I('c')?"
+            ##Need to finis this branching path
         
 #
 # Build data structures used for entire session and play game
@@ -124,4 +152,4 @@ def play_game(word_list):
 #    word_list = load_words()
 #    play_game(word_list)
 hand = deal_hand(HAND_SIZE)
-comp_choose_word(hand, word_list)
+comp_play_hand(hand, word_list)
