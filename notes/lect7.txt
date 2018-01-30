@@ -1,0 +1,11 @@
+Don't test wether floating point. Because of floating point aritimatic
+binary cannot finetly represent 0.1 for instance so it must be rounded.
+This usually isn't a problem but can accumulate over many iterations.
+
+The goal of debbuging is to move towards a bug-free program.
+Debuggers are programs avaliable to help debugging, though not a nesscesity.
+"How could it have produced the results that it did?" vs "Why did it not produce the desired results"
+Study avaliable data, form hypotises, design and run a repeatable experiment
+must have potential to refute hypthoesis.
+Use a "test harness" to debug. About 1/2 of the code written is for testing and debugging and is not used in final product.
+@45:00

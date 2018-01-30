@@ -4,6 +4,7 @@
 # Created by: Kevin Luu <luuk> and Jenna Wiens <jwiens>
 #
 #
+import pdb
 class bcolors:
     BLUE = '\033[34m'
     RED = '\033[31m'
@@ -346,5 +347,6 @@ def play_game(word_list):
 #
 # Build data structures used for entire session and play game
 #
+pdb.set_trace()
 word_list = load_words()
-#play_game(word_list)
+play_game(word_list)
