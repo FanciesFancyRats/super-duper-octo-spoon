@@ -5,7 +5,7 @@
 import string
 import random
 
-WORDLIST_FILENAME = "/sdcard/qpython/scripts/super-duper-octo-spoon/words2.txt"
+WORDLIST_FILENAME = "words.txt"
 
 # -----------------------------------
 # Helper code
@@ -13,7 +13,7 @@ WORDLIST_FILENAME = "/sdcard/qpython/scripts/super-duper-octo-spoon/words2.txt"
 def load_words():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
-
+    
     Depending on the size of the word list, this function may
     take a while to finish.
     """
@@ -51,7 +51,7 @@ def random_word(wordlist):
     """
     Returns a random word.
 
-    wordlist: list of words
+    wordlist: list of words  
     returns: a word from wordlist at random
     """
     return random.choice(wordlist)
@@ -99,6 +99,9 @@ def get_fable_string():
 #
 # Problem 1: Encryption
 #
+lowercase = 'abcdefghijklmnopqrstuvwxyz '
+uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+### These need to be combined I think, we were one off in the test results.
 def build_coder(shift):
     """
     Returns a dict that can apply a Caesar cipher to a letter.
@@ -120,38 +123,31 @@ def build_coder(shift):
     'v': 'y', 'y': 'a', 'x': ' ', 'z': 'b'}
     (The order of the key-value pairs may be different.)
     """
-    if(abs(shift) > 27):
-        shift = 0
-        print("Shift is out of bounds.")
-    dicti = {}
-    #making the dictionary of lowercase letters
-    for i in range(len(lowercase)):
-        x = lowercase[i]
-        if (i+shift < len(lowercase)):
-            y = lowercase[i+shift]
-            dicti.update({x:y})
-        else:
-            z = lowercase[i+shift-len(lowercase)]
-            dicti.update({x:z})
-    #making the dictionary of uppercase letters
-    if abs(shift) == 27:
-        print("abs(shift)")
-        if shift > 0:
-            shift = shift - 1
-        if shift < 0:
-            shift = shift + 1
-
-    for i in range(len(uppercase)):
-        x = uppercase[i]
-        if (i+shift < len(uppercase)):
-            y = uppercase[i+shift]
-            dicti.update({x:y})
-        else:
-            z = uppercase[i+shift-len(lowercase)]
-            dicti.update({x:z})
-
-    return(dicti)
     ### TODO.
+    if shift > 27:
+        print "build_coder is out of bounds."
+        return None
+    if shift < -27:
+        print "build_coder is out of bounds."
+        return None
+    coder = dict()
+    for i in range(len(lowercase)):
+        if (i + shift) < len(lowercase):
+          # print lowercase[i], ":", lowercase[i+shift]
+            coder[lowercase[i]] = lowercase[i+shift]
+        else:
+           # print lowercase[i], ":", lowercase[(i+shift) - len(lowercase)]
+            coder[lowercase[i]] = lowercase[(i+shift) - len(lowercase)]
+    for i in range(len(uppercase)):
+        if (i + shift) < len(uppercase):
+            coder[uppercase[i]] = uppercase[i+shift]
+        else:
+            coder[uppercase[i]] = uppercase[(i+shift) - len(uppercase)]
+   # print coder
+    return coder
+
+
+
 
 def build_encoder(shift):
     """
@@ -159,7 +155,7 @@ def build_encoder(shift):
     could encrypt the plain text by calling the following commands
     >>>encoder = build_encoder(shift)
     >>>encrypted_text = apply_coder(plain_text, encoder)
-
+    
     The cipher is defined by the shift value. Ignores non-letter characters
     like punctuation and numbers.
 
@@ -180,14 +176,13 @@ def build_encoder(shift):
 
     HINT : Use build_coder.
     """
-    if(shift < 27) and (shift > 0):
-        dicti = build_coder(shift)
-    else:
-        print("shift is out of bounds.")
-        dicti = build_coder(0)
-    return(dicti)
-
     ### TODO.
+    if shift <= 0 or shift > 27:
+        print "build_encoder is out of bounds", shift
+        return None
+    else:
+        return build_coder(shift)
+
 
 def build_decoder(shift):
     """
@@ -196,7 +191,7 @@ def build_decoder(shift):
     >>>encoder = build_encoder(shift)
     >>>encrypted_text = apply_coder(plain_text, encoder)
     >>>decrypted_text = apply_coder(plain_text, decoder)
-
+    
     The cipher is defined by the shift value. Ignores non-letter characters
     like punctuation and numbers.
 
@@ -217,15 +212,12 @@ def build_decoder(shift):
 
     HINT : Use build_coder.
     """
-    if(shift < 27) and (shift > 0):
-        dicti = build_coder(shift*-1)
-    else:
-        print("shift is out of bounds.")
-        dicti = build_coder(0)
-    return(dicti)
-
     ### TODO.
-
+    if shift <= 0 or shift > 27:
+        print "build_decoder is out of bounds", shift
+    else:
+        return build_coder(shift*-1)
+ 
 
 def apply_coder(text, coder):
     """
@@ -242,13 +234,8 @@ def apply_coder(text, coder):
     'Hello, world!'
     """
     ### TODO.
-    t = []
-    for i in range(len(text)):
-        t.append(text[i])
-    print(t)
-    delimiter = ""
-    s = delimiter.join(t)
-    print(s)
+  
+
 def apply_shift(text, shift):
     """
     Given a text, returns a new text Caesar shifted by the given shift
@@ -257,7 +244,7 @@ def apply_shift(text, shift):
     Otherwise, lower case letters should remain lower case, upper case
     letters should remain upper case, and all other punctuation should
     stay as it is.
-
+    
     text: string to apply the shift to
     shift: amount to shift the text
     returns: text after being shifted by specified amount.
@@ -267,7 +254,7 @@ def apply_shift(text, shift):
     'Apq hq hiham a.'
     """
     ### TODO.
-
+   
 #
 # Problem 2: Codebreaking.
 #
@@ -288,7 +275,7 @@ def find_best_shift(wordlist, text):
     'Hello, world!'
     """
     ### TODO
-
+   
 #
 # Problem 3: Multi-level encryption.
 #
@@ -296,11 +283,11 @@ def apply_shifts(text, shifts):
     """
     Applies a sequence of shifts to an input text.
 
-    text: A string to apply the Ceasar shifts to
+    text: A string to apply the Ceasar shifts to 
     shifts: A list of tuples containing the location each shift should
     begin and the shift offset. Each tuple is of the form (location,
     shift) The shifts are layered: each one is applied from its
-    starting position all the way through the end of the string.
+    starting position all the way through the end of the string.  
     returns: text after applying the shifts to the appropriate
     positions
 
@@ -309,7 +296,7 @@ def apply_shifts(text, shifts):
     'JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
     """
     ### TODO.
-
+ 
 #
 # Problem 4: Multi-level decryption.
 #
@@ -326,7 +313,7 @@ def find_best_shifts(wordlist, text):
     wordlist: list of words
     text: scambled text to try to find the words for
     returns: list of tuples.  each tuple is (position in text, amount of shift)
-
+    
     Examples:
     >>> s = random_scrambled(wordlist, 3)
     >>> s
@@ -372,17 +359,17 @@ def decrypt_fable():
     returns: string - fable in plain text
     """
     ### TODO.
-lowercase = "abcdefghijklmnopqrstuvwxyz "
-uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-thing = build_coder(1)
-apply_coder("Hello world", thing)
 
 
 
+    
 #What is the moral of the story?
 #
 #
 #
 #
 #
+test = build_encoder(3)
+test2 = build_decoder(3)
+print test
+print test2
