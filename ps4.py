@@ -101,7 +101,7 @@ def get_fable_string():
 #
 lowercase = 'abcdefghijklmnopqrstuvwxyz '
 uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '
-specialcase =(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"")
+specialcase =("!@#$%^&*()-_+={}[]|\:;'<>?,./\"")
 ### These need to be combined I think, we were one off in the test results.
 def build_coder(shift):
     """
@@ -143,7 +143,7 @@ def build_coder(shift):
         else:
            # print lowercase[i], ":", lowercase[(i+shift) - len(lowercase)]
             coder[lowercase[i]] = lowercase[(i+shift) - len(lowercase)]
-   # print coder
+    print coder
     return coder
 
 
@@ -258,7 +258,19 @@ def apply_shift(text, shift):
     >>> apply_shift('This is a test.', 8)
     'Apq hq hiham a.'
     """
-    ### TODO.
+    word = []
+    s = ""
+    coder = build_coder(shift)
+    for i in range(len(text)):
+        if text[i] in specialcase:
+            word.append(text[i])
+        else:
+            word.append(coder[text[i]])
+    s = ''.join(word)
+    return s
+
+
+
    
 #
 # Problem 2: Codebreaking.
@@ -377,5 +389,10 @@ def decrypt_fable():
 test = apply_coder("Hello, world!", build_encoder(3))
 test2 = apply_coder(test, build_decoder(3))
 print test
+print test2
+test = apply_shift('This is a test.', 8)
+test2 = apply_coder('This is a test.', build_encoder(8))
+print test
+print 'Apq hq hiham a.'
 print test2
 

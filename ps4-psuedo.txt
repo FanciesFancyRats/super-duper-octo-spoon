@@ -1,6 +1,7 @@
 Your algorithms should be plain English explanations for the steps your program will take to solve these problems.
 
 Write out your algorithm for Problem 2 here:
-
+Start searching through the string until the character " " is found. Once it is found or we have reached the end check if it is a valid word. If it is not a word,
+increase a counter and apply that cypher to the string and beging again. If it is a word return the counter.
 
 Write out your algorithm for Problem 4 here:
