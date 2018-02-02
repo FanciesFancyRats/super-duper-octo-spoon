@@ -11,4 +11,7 @@ for key, value in dict1.items():
     list1.append(key)
     list1.append(value)
 print list1
-print 
+testList = [1, 2, 3]
+print dict1[1]
+for i in range(len(testList)):
+    print dict1[testList[i]]

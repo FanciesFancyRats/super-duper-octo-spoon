@@ -100,7 +100,8 @@ def get_fable_string():
 # Problem 1: Encryption
 #
 lowercase = 'abcdefghijklmnopqrstuvwxyz '
-uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '
+specialcase =(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"")
 ### These need to be combined I think, we were one off in the test results.
 def build_coder(shift):
     """
@@ -123,7 +124,6 @@ def build_coder(shift):
     'v': 'y', 'y': 'a', 'x': ' ', 'z': 'b'}
     (The order of the key-value pairs may be different.)
     """
-    ### TODO.
     if shift > 27:
         print "build_coder is out of bounds."
         return None
@@ -131,6 +131,11 @@ def build_coder(shift):
         print "build_coder is out of bounds."
         return None
     coder = dict()
+    for i in range(len(uppercase)):
+        if (i + shift) < len(uppercase):
+            coder[uppercase[i]] = uppercase[i+shift]
+        else:
+            coder[uppercase[i]] = uppercase[(i+shift) - len(uppercase)]
     for i in range(len(lowercase)):
         if (i + shift) < len(lowercase):
           # print lowercase[i], ":", lowercase[i+shift]
@@ -138,11 +143,6 @@ def build_coder(shift):
         else:
            # print lowercase[i], ":", lowercase[(i+shift) - len(lowercase)]
             coder[lowercase[i]] = lowercase[(i+shift) - len(lowercase)]
-    for i in range(len(uppercase)):
-        if (i + shift) < len(uppercase):
-            coder[uppercase[i]] = uppercase[i+shift]
-        else:
-            coder[uppercase[i]] = uppercase[(i+shift) - len(uppercase)]
    # print coder
     return coder
 
@@ -176,7 +176,6 @@ def build_encoder(shift):
 
     HINT : Use build_coder.
     """
-    ### TODO.
     if shift <= 0 or shift > 27:
         print "build_encoder is out of bounds", shift
         return None
@@ -212,7 +211,6 @@ def build_decoder(shift):
 
     HINT : Use build_coder.
     """
-    ### TODO.
     if shift <= 0 or shift > 27:
         print "build_decoder is out of bounds", shift
     else:
@@ -233,8 +231,15 @@ def apply_coder(text, coder):
     >>> apply_coder("Khoor,czruog!", build_decoder(3))
     'Hello, world!'
     """
-    ### TODO.
-  
+    word = []
+    s = ""
+    for i in range(len(text)):
+        if text[i] in specialcase:
+            word.append(text[i])
+        else:
+            word.append(coder[text[i]])
+    s = ''.join(word)
+    return s
 
 def apply_shift(text, shift):
     """
@@ -369,7 +374,8 @@ def decrypt_fable():
 #
 #
 #
-test = build_encoder(3)
-test2 = build_decoder(3)
+test = apply_coder("Hello, world!", build_encoder(3))
+test2 = apply_coder(test, build_decoder(3))
 print test
 print test2
+
