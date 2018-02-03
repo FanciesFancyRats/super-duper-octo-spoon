@@ -143,7 +143,7 @@ def build_coder(shift):
         else:
            # print lowercase[i], ":", lowercase[(i+shift) - len(lowercase)]
             coder[lowercase[i]] = lowercase[(i+shift) - len(lowercase)]
-    print coder
+   # print coder
     return coder
 
 
@@ -291,7 +291,27 @@ def find_best_shift(wordlist, text):
     >>> apply_coder(s, build_decoder(8)) returns
     'Hello, world!'
     """
-    ### TODO
+    bestShift = 0
+    bestWordsFound = 0
+    wordsFound = 0
+    place = 0
+    wordList = []
+    for i in range(27):
+        print apply_coder(text,build_decoder(i+1)), i+1
+        lastSpace = 0
+        for j in range(len(text)):
+            if text[j] in specialcase:
+                print 'space here'
+                while place < lastSpace or place < len(text):
+                    print text[place]
+                    place += 1
+    #Honestly should probably rethink this function from scratch, leaving here for refrence though
+
+
+
+
+    
+    
    
 #
 # Problem 3: Multi-level encryption.
@@ -386,13 +406,4 @@ def decrypt_fable():
 #
 #
 #
-test = apply_coder("Hello, world!", build_encoder(3))
-test2 = apply_coder(test, build_decoder(3))
-print test
-print test2
-test = apply_shift('This is a test.', 8)
-test2 = apply_coder('This is a test.', build_encoder(8))
-print test
-print 'Apq hq hiham a.'
-print test2
-
+find_best_shift(wordlist,'Pmttw,hdwztl!')
