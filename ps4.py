@@ -294,25 +294,31 @@ def find_best_shift(wordlist, text):
     bestShift = 0
     bestWordsFound = 0
     wordsFound = 0
-    place = 0
+    makeWord = []
     wordList = []
     for i in range(27):
-        print apply_coder(text,build_decoder(i+1)), i+1
-        lastSpace = 0
+        shiftWord = apply_coder(text,build_decoder(i+1))
+        wordList = []
+        wordsFound = 0
         for j in range(len(text)):
-            if text[j] in specialcase:
-                print 'space here'
-                while place < lastSpace or place < len(text):
-                    print text[place]
-                    place += 1
-    #Honestly should probably rethink this function from scratch, leaving here for refrence though
+            if shiftWord[j] in specialcase or shiftWord[j] == ' ':
+                s = ''.join(makeWord)
+                makeWord = []
+                wordList.append(s)
+            else:
+                makeWord.append(shiftWord[j])
+        for l in range (len(wordList)):
+            if is_word(wordlist, wordList[l]):
+                print wordList[l], " is a word"
+                wordsFound += 1
+        if wordsFound > bestWordsFound:
+            print 'best so far: ', wordsFound
+            bestWordsFound = wordsFound
+            bestShift = i
+            
+    return bestShift+1
 
 
-
-
-    
-    
-   
 #
 # Problem 3: Multi-level encryption.
 #
@@ -333,6 +339,35 @@ def apply_shifts(text, shifts):
     'JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
     """
     ### TODO.
+    makeWord = []
+    unShift = []
+    for i in range(len(shifts)):
+        makeWord = []
+        unShift = []
+        x = shifts[i]
+        k = x[0]
+        y = x[1]
+        for j in range(len(text)):
+            if j < k:
+                c = text[j]
+                unShift.append(c)
+            else:
+                c = text[j]
+                makeWord.append(c)
+
+        
+        shiftThis = ''.join(makeWord)
+        #print shiftThis
+        shiftThis = apply_shift(shiftThis, y)
+        dontShiftThis = ''.join(unShift) #print dontShiftThis
+
+        text = dontShiftThis + shiftThis 
+        #print text
+    return text
+
+
+
+
  
 #
 # Problem 4: Multi-level decryption.
@@ -367,7 +402,7 @@ def find_best_shifts(wordlist, text):
     >>> print apply_shifts(s, shifts)
     Do Androids Dream of Electric Sheep?
     """
-
+    
 def find_best_shifts_rec(wordlist, text, start):
     """
     Given a scrambled string and a starting position from which
@@ -382,7 +417,31 @@ def find_best_shifts_rec(wordlist, text, start):
     start: where to start looking at shifts
     returns: list of tuples.  each tuple is (position in text, amount of shift)
     """
-    ### TODO.
+    unshifted = []
+    shiftThis = []
+    makeWord = []
+    wordList = []
+    for i in range(len(text)):
+        if i < start:
+            unshifted.append(text[i])
+        else:
+            shiftThis.append(text[i])
+    checkedString = ''.join(unshifted)
+    shiftString = ''.join(shiftThis)
+    testString = ''
+    for i in range(27):
+        testString = apply_shift(shiftString, i)
+        for j in range(len(testString)):
+            if testString[j] == ' ' or testString[j] in specialcase:
+                s = ''.join(makeWord)
+                wordList.append(s)
+            else:
+                c = testString[j]
+                makeWord.append(c)
+
+
+
+    
 
 
 def decrypt_fable():
@@ -406,4 +465,9 @@ def decrypt_fable():
 #
 #
 #
-find_best_shift(wordlist,'Pmttw,hdwztl!')
+
+test1 = apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (12, 16)])
+test = 'I love JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
+print test1 == test
+find_best_shifts(wordlist, test)
+
