@@ -421,6 +421,8 @@ def find_best_shifts_rec(wordlist, text, start):
     shiftThis = []
     makeWord = []
     wordList = []
+    makeWord2 = []
+    s2 = ''
     for i in range(len(text)):
         if i < start:
             unshifted.append(text[i])
@@ -430,18 +432,16 @@ def find_best_shifts_rec(wordlist, text, start):
     print shiftThis
     testString = shiftThis
     for h in range(27):
-        testString = apply_shift(shiftThis, h+1)
-        for i in range(len(testString)):
-            if testString[i] in specialcase or shiftThis[i] == ' ':
+        for i in range(len(shiftThis)):
+            if shiftThis[i] in specialcase or shiftThis[i] == ' ':
                 s = ''.join(makeWord)
-                print s
-                if is_word(wordlist, s):
-                    print h+1
-                    print s, "is a word"
-                    break
+                append.wordList(s)
+                makeWord = []
             else:
-                makeWord.append(testString[i])
-    #Break it down some more, think of the simplest case.
+                append.makeWord(shiftThis[i])
+    print wordList
+
+        #Break it down some more, think of the simplest case.
             
     
 
@@ -474,5 +474,5 @@ test1 = apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (1
 test = 'I love JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
 print test1 == test
 find_best_shifts_rec(wordlist, test, 7)
-for i in range (27):
-    print apply_shift(test, i)
+#for i in range (27):
+#    print apply_shift(test, i)
