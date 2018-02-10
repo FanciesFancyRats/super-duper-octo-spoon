@@ -402,8 +402,9 @@ def find_best_shifts(wordlist, text):
     >>> print apply_shifts(s, shifts)
     Do Androids Dream of Electric Sheep?
     """
+    print text
     
-def find_best_shifts_rec(wordlist, text, start, shifts):
+def find_best_shifts_rec(wordlist, text, start, shifts, shiftedText, cheat):
     """
     Given a scrambled string and a starting position from which
     to decode, returns a shift key that will decode the text to
@@ -423,6 +424,8 @@ def find_best_shifts_rec(wordlist, text, start, shifts):
     wordList = []
     makeWord2 = []
     s2 = ''
+    unshiftedString = ''
+    shiftedString = ''
     locationChange = 0
     specialCases = 0
     for i in range(len(text)):
@@ -430,8 +433,8 @@ def find_best_shifts_rec(wordlist, text, start, shifts):
             unshifted.append(text[i])
         else:
             shiftThis.append(text[i])
-    print unshifted
-    print shiftThis
+    #print unshifted
+    #print shiftThis
     testString = shiftThis
     for h in range(27):
         locationChange = 0
@@ -446,28 +449,39 @@ def find_best_shifts_rec(wordlist, text, start, shifts):
                 specialCases += 1
             else:
                 makeWord.append(testString[i])
-        print wordList
+        #print wordList
         for g in range(len(wordList)):
-            print is_word(wordlist, wordList[g]),
+         #   print is_word(wordlist, wordList[g]),
             if is_word(wordlist, wordList[g]):
+                cheat.append(wordList[g])
                 s2 = wordList[g]
 
                 locationChange += len(s2) + 1
                 print wordList[g], "is a word"
+                print apply_shift(shiftThis, h)
+                shiftedString = apply_shift(shiftThis, h)
             else:
-                print "breaking"
+         #       print "breaking"
                 break
         if locationChange > 0:
             bestShift = h
-            print locationChange, " ", bestShift
+         #   print locationChange, " ", bestShift
             start += locationChange
             shifts += [(start, bestShift)]
-            print shifts
+         #   print shifts
     if start < len(text):
-        find_best_shifts_rec(wordlist, text, start, shifts)
+        unshiftedString = ''.join(unshifted)
+       # print "     ", unshiftedString
+        
+        #print "     ", shiftedString
+        shiftedText = unshiftedString + shiftedString
+    #    print "     ", shiftedText
+        find_best_shifts_rec(wordlist, text, start, shifts, shiftedText, cheat)
     else:
         print shifts
         print apply_shifts(text, shifts)
+        print shiftedText
+        print cheat
         return shifts
 
 
@@ -505,7 +519,9 @@ def decrypt_fable():
 test1 = apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (12, 16)])
 test = 'I love JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
 print test1 == test
+fable = get_fable_string()
 shifts = []
-find_best_shifts_rec(wordlist, test, 7, [])
+find_best_shifts_rec(wordlist, test, 7, [], '', [])
+find_best_shifts_rec(wordlist, fable, 0, [], '', [])
 #for i in range (27):
 #    print apply_shift(test, i)
