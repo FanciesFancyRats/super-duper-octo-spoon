@@ -374,7 +374,7 @@ def apply_shifts(text, shifts):
 #
 
 
-def find_best_shifts(wordlist, text):
+def find_best_shifts(wordlist, text, start):
     """
     Given a scrambled string, returns a shift key that will decode the text to
     words in wordlist, or None if there is no such key.
@@ -402,7 +402,57 @@ def find_best_shifts(wordlist, text):
     >>> print apply_shifts(s, shifts)
     Do Androids Dream of Electric Sheep?
     """
-    print text
+    testString = ''
+    makeWord = []
+    stringList = []
+    notShifting = []
+    shiftThis = []
+    
+    for i in range(len(text)):
+        if text[i] == '' or text[i] in specialcase:
+            s = ''.join(makeWord)
+            stringList.append(s)
+            makeWord = []
+            print "is ", s, "a word?"
+            a = raw_input("Press any key")
+            if not is_word(wordlist, s):
+                break
+            else:
+                start += len(s)+1
+
+        else:
+            makeWord.append(text[i])
+
+
+    print start
+    for i in range(len(text)):
+        if i < start:
+            notShifting.append(text[i])
+        else:
+            shiftThis.append(text[i])
+
+    print "We leaving this alone: ", notShifting
+    print "We are going to shift this: ", shiftThis
+
+    a = raw_input("Press any key")
+
+
+
+    for i in range(27):
+        stringList = []
+        testString = apply_shift(text, i+1)
+        for j in range(len(testString)):
+            #Looking for spaces or punctuation to seperate the string into words
+            if testString[j] in specialcase or testString[j] == ' ':
+                s =''.join(makeWord)
+                stringList.append(s)
+                makeWord = []
+            else:
+                makeWord.append(testString[j])
+        print i
+        print stringList
+
+
     
 def find_best_shifts_rec(wordlist, text, start, shifts, shiftedText, cheat):
     """
@@ -514,14 +564,11 @@ def decrypt_fable():
 #
 #
 #
-#
+
 
 test1 = apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (12, 16)])
 test = 'I love JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
-print test1 == test
 fable = get_fable_string()
-shifts = []
-find_best_shifts_rec(wordlist, test, 7, [], '', [])
-find_best_shifts_rec(wordlist, fable, 0, [], '', [])
-#for i in range (27):
-#    print apply_shift(test, i)
+print test
+find_best_shifts(wordlist, test, 0) 
+#find_best_shifts(wordlist, fable)
