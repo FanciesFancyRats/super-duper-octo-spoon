@@ -407,9 +407,10 @@ def find_best_shifts(wordlist, text, start):
     stringList = []
     notShifting = []
     shiftThis = []
+    change = 0
     
     for i in range(len(text)):
-        if text[i] == '' or text[i] in specialcase:
+        if text[i] == ' ' or text[i] in specialcase:
             s = ''.join(makeWord)
             stringList.append(s)
             makeWord = []
@@ -431,24 +432,47 @@ def find_best_shifts(wordlist, text, start):
         else:
             shiftThis.append(text[i])
 
-    print "We leaving this alone: ", notShifting
+    print "We are leaving this alone: ", notShifting
     print "We are going to shift this: ", shiftThis
 
     a = raw_input("Press any key")
 
 
-
+    shiftThis = ''.join(shiftThis)
     for i in range(27):
         stringList = []
-        testString = apply_shift(text, i+1)
+        testString = apply_shift(shiftThis, i+1)
         for j in range(len(testString)):
             #Looking for spaces or punctuation to seperate the string into words
             if testString[j] in specialcase or testString[j] == ' ':
                 s =''.join(makeWord)
                 stringList.append(s)
                 makeWord = []
+                if not is_word(wordlist, s):
+                    print 'Shift ', i, 'made the word: ', s
+                    print 'breaking'
+                    a = raw_input('press any key')
+                    if change > 0:
+                        notShifting = ''.join(notShifting)
+                        text = notShifting + apply_shift(shiftThis, i)
+                        print text
+                        print 'We are going to start looking at ', change+start, 'which is: ', text[start+change]
+                        start += change
+                    if start < len(text):
+                        find_best_shifts(wordlist, text, start)
+
+
+                    break
+                else:
+                    change += len(s) + 1
+                    print 'we are moving the start location ', change
+                    a = raw_input('press any key')
+
+
+
             else:
                 makeWord.append(testString[j])
+              
         print i
         print stringList
 
