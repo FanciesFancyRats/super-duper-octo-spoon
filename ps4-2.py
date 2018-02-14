@@ -454,18 +454,20 @@ def find_best_shifts(wordlist, text, start):
                     a = raw_input('press any key')
                     if change > 0:
                         notShifting = ''.join(notShifting)
+                        print 'This is the text we are not shifthing: ', notShifting
+                        print 'This is the text we are going to shift: ', shiftThis
+                        print shiftThis, ' will be shifted to: ', apply_shift(shiftThis, i)
                         text = notShifting + apply_shift(shiftThis, i)
+                     
                         print text
                         print 'We are going to start looking at ', change+start, 'which is: ', text[start+change]
                         start += change
-                    if start < len(text):
-                        find_best_shifts(wordlist, text, start)
 
 
                     break
                 else:
                     change += len(s) + 1
-                    print 'we are moving the start location ', change
+                    print 'we are moving the start location ', change, ' because ', s, ' is a word.'
                     a = raw_input('press any key')
 
 
@@ -579,6 +581,31 @@ def decrypt_fable():
     returns: string - fable in plain text
     """
     ### TODO.
+def find_shifts(wordlist, text, start):
+    shiftThis = []
+    notShifting = []
+    makeWord = []
+    wordList = []
+    testString = ''
+    for i in range(len(text)):
+        if i < start:
+            notShifting.append(text[i])
+        else:
+            shiftThis.append(text[i])
+    for i in range(27):
+        testString = apply_shift(shiftThis, i+1)
+        #making a list of words
+        for j in range(len(testString)):
+            if testString[j] == ' ' or testString[j] in specialcase:
+                s = ''.join(makeWord)
+                wordList.append(s)
+            else:
+               makeWord.append(testString[j])
+            
+
+                
+            
+
 
 
 
@@ -592,7 +619,5 @@ def decrypt_fable():
 
 test1 = apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (12, 16)])
 test = 'I love JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
-fable = get_fable_string()
-print test
-find_best_shifts(wordlist, test, 0) 
-#find_best_shifts(wordlist, fable)
+find_shifts(wordlist, test, 8)
+    
