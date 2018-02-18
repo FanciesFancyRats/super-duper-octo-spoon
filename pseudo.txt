@@ -1,0 +1,12 @@
+Begin by breaking the string apart from the begining of the string to the start location.
+Divinding the string into notShifting and toBeShifted text
+For every shift in the range 27 apply it to the theBeShifted string
+	for every possible shift divide this string into a list of words, seperated by spaces and special characters.
+
+if a valid word is found move the start location by the length of the word plus it's space
+test if the next word is valid
+when an invalid word is found break and record the shift
+apply this shift to the toBeShifted string
+concatenate notShifting and toBeshifted(which has been shifted)
+check if the start location is now at the end
+if not make a recursive call to the functi

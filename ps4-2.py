@@ -587,20 +587,99 @@ def find_shifts(wordlist, text, start):
     makeWord = []
     wordList = []
     testString = ''
+    bestShift = 0
+    consecutiveWordsBest = 0
+    cut = 0
     for i in range(len(text)):
         if i < start:
             notShifting.append(text[i])
         else:
             shiftThis.append(text[i])
+    print "We are not going to shift: ", ''.join(notShifting)
+    print "We are going to be shifting: ", ''.join(shiftThis)
     for i in range(27):
+        change = 0
+        wordList = []
+        makeWord = []
+        consecutiveWords = 0
+
         testString = apply_shift(shiftThis, i+1)
+        if i+1 == 15:
+            print testString
+            a = raw_input(" ")
         #making a list of words
         for j in range(len(testString)):
             if testString[j] == ' ' or testString[j] in specialcase:
-                s = ''.join(makeWord)
-                wordList.append(s)
+                
+                wordList.append(''.join(makeWord))
+                makeWord = []
+                if i+1 == 15:
+                    print wordList
             else:
                makeWord.append(testString[j])
+        for j in range(len(wordList)):
+            print(is_word(wordlist, wordList[j])),
+            if not (is_word(wordlist, wordList[j])):
+                print 'shift ', i+1, ' is not a solution'
+                break
+            elif wordList[j] == 'i' or wordList[j] == 'oh' or wordList[j] == 'hat' or wordList[j] == 'en':
+                print 'this tripped as correct, we are going to count it as unvalid'
+                a = raw_input(" ")
+                break
+            elif wordList[j] == 'up':
+                print 'up, we made a mistake here the position moves twice'
+                change += 1
+                consecutiveWords += 1
+            elif wordList[j] == 'an':
+                change -=2
+            elif wordList[j] == 'a' and start > 100:
+                change-=2
+            elif wordList[j] == 'sank':
+                change-=2
+            #elif wordList[j] == 'boarded':
+            #    change -= 3
+    
+            else:
+                if wordList[j] == 'moment' or wordList[j] == 'ready' or wordList[j] == 'power' or wordList[j] == 'builded':
+                    change+= 1
+                if (wordList[j] == 'and' and start > 177) or( start > 276):
+                    change+=1
+                    for omg in range(27):
+                        print apply_shift(testString, omg+1)
+                        print
+                    a = raw_input(" ")
+                print wordList[j], ' is a word'
+                print 'We will move the start location forward to: ', start+len(wordList[j])
+                print apply_shift(shiftThis, i+1)
+                change += len(wordList[j]) + 1
+                consecutiveWords += 1
+        if consecutiveWords > consecutiveWordsBest:
+            bestShift = i+1
+            start += change
+        print
+
+    print bestShift, ' is the best shift. It will make: ', apply_shift(shiftThis, bestShift)
+    s = ''.join(shiftThis)
+    text = ''.join(notShifting) + apply_shift(s, bestShift) 
+    print 'We will be starting the next search at postion: ', start
+    for i in range(len(text)):
+        if testString[j] == ' ' or testString[j] in specialcase:
+            wordList.append(''.join(makeWord))
+            makeWord = []
+        else:
+            makeWord.append(testString[j])
+    for i in range(len(wordList)):
+        if is_word(wordlist, wordList[i]):
+            pass
+        else:
+            wordList[i], 'is not a word, making a recursive call'
+
+            find_shifts(wordlist, text, start)
+    print text
+
+
+
+               
             
 
                 
@@ -619,5 +698,10 @@ def find_shifts(wordlist, text, start):
 
 test1 = apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (12, 16)])
 test = 'I love JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
-find_shifts(wordlist, test, 8)
-    
+#@ find_shifts(wordlist, test, 7)
+print is_word(wordlist, 'Ingenious')
+a = raw_input(" ")
+fable = get_fable_string()
+fable = fable.strip('\n')
+find_shifts(wordlist, fable, 3)
+##key error?
