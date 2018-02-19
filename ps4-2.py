@@ -590,6 +590,8 @@ def find_shifts(wordlist, text, start):
     bestShift = 0
     consecutiveWordsBest = 0
     cut = 0
+    if start == 289:
+        pass    
     for i in range(len(text)):
         if i < start:
             notShifting.append(text[i])
@@ -597,13 +599,24 @@ def find_shifts(wordlist, text, start):
             shiftThis.append(text[i])
     print "We are not going to shift: ", ''.join(notShifting)
     print "We are going to be shifting: ", ''.join(shiftThis)
-    ##So when we hit this spot, the word is sank. append that and move the start location accordingly
+    ##So when we hit this spot, the word is sank. append that and move the start location accordingly, shift 19
     if start == 289:
-        for i in range(27):
-            s = ''.join(shiftThis)
-            print apply_shift(s, i+1)
-            a = raw_input("We are stuck here")
+        pass
+        print 
+        print
+        print shiftThis
+        print
+        print
+        a = raw_input("did that work?")
+        start = 288
+
     for i in range(27):
+        if start == 289:
+            testString = apply_shift(shiftThis, 19)
+            shiftThis = ['s'] + shiftThis
+            print ''.join(shiftThis)
+            a = raw_input('what?')
+            break
         change = 0
         wordList = []
         makeWord = []
@@ -612,7 +625,8 @@ def find_shifts(wordlist, text, start):
         testString = apply_shift(shiftThis, i+1)
         if i+1 == 15:
             print testString
-            a = raw_input(" ")
+            if start > 280:
+                a = raw_input(" ")
         #making a list of words
         for j in range(len(testString)):
             if testString[j] == ' ' or testString[j] in specialcase:
@@ -630,7 +644,8 @@ def find_shifts(wordlist, text, start):
                 break
             elif wordList[j] == 'i' or wordList[j] == 'oh' or wordList[j] == 'hat' or wordList[j] == 'en':
                 print 'this tripped as correct, we are going to count it as unvalid'
-                a = raw_input(" ")
+                if start > 280:
+                    a = raw_input(" ")
                 break
             elif wordList[j] == 'up':
                 print 'up, we made a mistake here the position moves twice'
@@ -655,7 +670,8 @@ def find_shifts(wordlist, text, start):
                     for omg in range(27):
                         print apply_shift(testString, omg+1)
                         print
-                    a = raw_input(" ")
+                    if start > 280:
+                        a = raw_input(" ")
                 print wordList[j], ' is a word'
                 print 'We will move the start location forward to: ', start+len(wordList[j])
                 print apply_shift(shiftThis, i+1)
@@ -713,3 +729,5 @@ fable = get_fable_string()
 fable = fable.strip('\n')
 find_shifts(wordlist, fable, 3)
 ##key error?
+
+##This just needs a complete re write this point
