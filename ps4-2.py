@@ -597,6 +597,12 @@ def find_shifts(wordlist, text, start):
             shiftThis.append(text[i])
     print "We are not going to shift: ", ''.join(notShifting)
     print "We are going to be shifting: ", ''.join(shiftThis)
+    ##So when we hit this spot, the word is sank. append that and move the start location accordingly
+    if start == 289:
+        for i in range(27):
+            s = ''.join(shiftThis)
+            print apply_shift(s, i+1)
+            a = raw_input("We are stuck here")
     for i in range(27):
         change = 0
         wordList = []
@@ -636,6 +642,8 @@ def find_shifts(wordlist, text, start):
                 change-=2
             elif wordList[j] == 'sank':
                 change-=2
+            #elif wordList[j] == 'and' and start > 280:
+            #    change-=0
             #elif wordList[j] == 'boarded':
             #    change -= 3
     
