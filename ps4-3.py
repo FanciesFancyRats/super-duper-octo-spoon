@@ -401,8 +401,9 @@ def find_best_shifts(wordlist, text, start):
     >>> shifts = find_best_shifts(wordlist, s)
     >>> print apply_shifts(s, shifts)
     Do Androids Dream of Electric Sheep?
-    """
-    for 
+   """
+
+    pass
         
 def find_best_shifts_rec(wordlist, text, start, shifts, shiftedText, cheat):
     """
@@ -418,7 +419,7 @@ def find_best_shifts_rec(wordlist, text, start, shifts, shiftedText, cheat):
     start: where to start looking at shifts
     returns: list of tuples.  each tuple is (position in text, amount of shift)
     """
-    
+     
 def decrypt_fable():
      """
     Using the methods you created in this problem set,
@@ -430,14 +431,26 @@ def decrypt_fable():
     returns: string - fable in plain text
     """
     ### TODO.
-def find_shifts(wordlist, text, start):
-                  
-
+    
     
 #What is the moral of the story?
 #
 #
 #
 #
-
-
+s = "blue skies, and sunny days await you on the 'off world' colony"
+shifts = [(0, 12), (5, 6), (16, 8)]
+a = apply_shifts(s, shifts)
+b = apply_shift(s, 6)
+print b
+print apply_shift(b, -(find_best_shift(wordlist, b)))
+print find_best_shift(wordlist, b)
+#print a
+fable = get_fable_string()
+fable = fable.strip("\n")
+fable = fable[3:] 
+print find_best_shift(wordlist, fable)
+for i in range(27):
+    print i
+    print apply_shift(fable, i)
+    print
