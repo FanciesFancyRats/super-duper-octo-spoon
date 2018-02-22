@@ -405,7 +405,7 @@ def find_best_shifts(wordlist, text, start):
 
     pass
         
-def find_best_shifts_rec(wordlist, text, start, shifts, shiftedText, cheat):
+def find_best_shifts_rec(wordlist, text, start, shifts):
     """
     Given a scrambled string and a starting position from which
     to decode, returns a shift key that will decode the text to
@@ -419,7 +419,16 @@ def find_best_shifts_rec(wordlist, text, start, shifts, shiftedText, cheat):
     start: where to start looking at shifts
     returns: list of tuples.  each tuple is (position in text, amount of shift)
     """
-     
+    ##Take the text and apply a shift 1 through 27
+    ##Begin scanning over the text looking for a space or a special character
+    ##If a space is found, check if that string makes a word,
+    ##When a space if found check if that is a word
+    ##If it is a valid word continue checking
+    ##Move the start position according to the length of the strings
+    ##Once a invalid word has been found, append the shifts to the shifts variable
+    ##If at the end return the shifts, otherwise
+    ##Make a recursive call to the function
+    
 def decrypt_fable():
      """
     Using the methods you created in this problem set,
@@ -454,3 +463,10 @@ for i in range(27):
     print i
     print apply_shift(fable, i)
     print
+fable = apply_shift(fable, 15)
+character = ''
+for i in range(len(fable)):
+    print fable[i]
+    if fable[i] == ' ':
+        break
+print is_word(wordlist, fable[:i])

@@ -444,7 +444,7 @@ def find_best_shifts(wordlist, text, start):
         testString = apply_shift(shiftThis, i+1)
         for j in range(len(testString)):
             #Looking for spaces or punctuation to seperate the string into words
-            if testString[j] in specialcase or testString[j] == ' ':
+            if testString[j] == ' ':
                 s =''.join(makeWord)
                 stringList.append(s)
                 makeWord = []
@@ -629,7 +629,7 @@ def find_shifts(wordlist, text, start):
                 a = raw_input(" ")
         #making a list of words
         for j in range(len(testString)):
-            if testString[j] == ' ' or testString[j] in specialcase:
+            if testString[j] == ' ': 
                 
                 wordList.append(''.join(makeWord))
                 makeWord = []
@@ -687,7 +687,7 @@ def find_shifts(wordlist, text, start):
     text = ''.join(notShifting) + apply_shift(s, bestShift) 
     print 'We will be starting the next search at postion: ', start
     for i in range(len(text)):
-        if testString[j] == ' ' or testString[j] in specialcase:
+        if testString[j] == ' ':
             wordList.append(''.join(makeWord))
             makeWord = []
         else:
