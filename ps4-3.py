@@ -419,7 +419,32 @@ def find_best_shifts_rec(wordlist, text, start, shifts):
     start: where to start looking at shifts
     returns: list of tuples.  each tuple is (position in text, amount of shift)
     """
+    shiftedText = apply_shifts(text, shifts)
     ##Take the text and apply a shift 1 through 27
+    for i in range(27):
+        shiftStart = 0
+        shiftedText = apply_shift(text, i+1)
+        shiftedText = shiftedText[start:]
+        spaceFound = 0
+        #print shiftedText
+        for j in range(len(shiftedText)):
+            if shiftedText[j] == ' ':
+                if is_word(wordlist, shiftedText[spaceFound:j]):
+                    print shiftedText[spaceFound:j], ' is a word. ',
+                    start += len(shiftedText[spaceFound:j])+1
+                    ## need to figure out the math for this one, the shift should be a diffrence of start location and length of the words found.
+                    shiftStart += 
+
+
+                #print is_word(wordlist, shiftedText[spaceFound:j])
+                else:
+                    print
+                    break
+                spaceFound = j
+                
+               
+
+
     ##Begin scanning over the text looking for a space or a special character
     ##If a space is found, check if that string makes a word,
     ##When a space if found check if that is a word
@@ -450,23 +475,4 @@ def decrypt_fable():
 s = "blue skies, and sunny days await you on the 'off world' colony"
 shifts = [(0, 12), (5, 6), (16, 8)]
 a = apply_shifts(s, shifts)
-b = apply_shift(s, 6)
-print b
-print apply_shift(b, -(find_best_shift(wordlist, b)))
-print find_best_shift(wordlist, b)
-#print a
-fable = get_fable_string()
-fable = fable.strip("\n")
-fable = fable[3:] 
-print find_best_shift(wordlist, fable)
-for i in range(27):
-    print i
-    print apply_shift(fable, i)
-    print
-fable = apply_shift(fable, 15)
-character = ''
-for i in range(len(fable)):
-    print fable[i]
-    if fable[i] == ' ':
-        break
-print is_word(wordlist, fable[:i])
+find_best_shifts_rec(wordlist, a, 0, [])
