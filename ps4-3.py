@@ -345,6 +345,8 @@ def apply_shifts(text, shifts):
         makeWord = []
         unShift = []
         x = shifts[i]
+        #print shifts[i]
+        #print type(shifts) 
         k = x[0]
         y = x[1]
         for j in range(len(text)):
@@ -425,26 +427,39 @@ def find_best_shifts_rec(wordlist, text, start, shifts):
         shiftStart = 0
         shiftedText = apply_shift(text, i+1)
         shiftedText = shiftedText[start:]
+        
         spaceFound = 0
         #print shiftedText
         for j in range(len(shiftedText)):
             if shiftedText[j] == ' ':
                 if is_word(wordlist, shiftedText[spaceFound:j]):
                     print shiftedText[spaceFound:j], ' is a word. ',
-                    start += len(shiftedText[spaceFound:j])+1
+                    #start += len(shiftedText[spaceFound:j])+1
                     ## need to figure out the math for this one, the shift should be a diffrence of start location and length of the words found.
-                    shiftStart += 
+                    shiftStart += len(shiftedText[spaceFound:j])+1
+                
+
+                    
 
 
                 #print is_word(wordlist, shiftedText[spaceFound:j])
                 else:
-                    print
+                   #print
                     break
                 spaceFound = j
+            ## If we found a word, we are going to break here. We will need to implement some way to record it though so we can go back when we inveitebly make an error.
+        if shiftStart > 0:
+            add = tuple
+            add = (start, i+1),
+            shifts = shifts + add 
+            print type(shifts)
+            print shifts
+            print apply_shifts(text, shifts)
                 
                
-
-
+    start += shiftStart
+    a = raw_input("Making a recursive call")
+    find_best_shifts_rec(wordlist, text, start, shifts)
     ##Begin scanning over the text looking for a space or a special character
     ##If a space is found, check if that string makes a word,
     ##When a space if found check if that is a word
@@ -475,4 +490,5 @@ def decrypt_fable():
 s = "blue skies, and sunny days await you on the 'off world' colony"
 shifts = [(0, 12), (5, 6), (16, 8)]
 a = apply_shifts(s, shifts)
-find_best_shifts_rec(wordlist, a, 0, [])
+shifts = tuple()
+find_best_shifts_rec(wordlist, a, 0, shifts)
